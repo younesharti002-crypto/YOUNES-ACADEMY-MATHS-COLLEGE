@@ -1,0 +1,51 @@
+{
+  "name": "younes-academy",
+  "private": true,
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "prebuild": "npm run test:access",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test:auth": "node --test tests/auth/*.test.ts",
+    "test:subscriptions": "node --test tests/subscriptions/*.test.ts",
+    "test:academic": "node --test tests/academic/*.test.ts",
+    "test:access": "node --test tests/access/*.test.ts",
+    "test:qa": "npm run test:auth && npm run test:subscriptions && npm run test:academic && npm run test:access",
+    "seed:core-users": "node scripts/seed-core-users.mjs",
+    "seed:academic": "node scripts/seed-academic-core.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "dotenv": "17.3.1",
+    "drizzle-orm": "0.45.2",
+    "next": "16.2.6",
+    "pg": "8.20.0",
+    "prettier": "^3.9.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.1.17",
+    "@types/node": "22.19.15",
+    "@types/pg": "8.18.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "drizzle-kit": "0.31.10",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.2.6",
+    "postcss": "8.5.8",
+    "tailwindcss": "4.1.17",
+    "typescript": "5.9.3"
+  },
+  "version": "0.1.0"
+}
