@@ -1,0 +1,47 @@
+{
+  "name": "Younes Academy — Maths Collège",
+  "short_name": "Younes Maths",
+  "description": "منصة الرياضيات للإعدادي: 1AC و2AC و3AC، دروس وتمارين وفروض ومتابعة التقدم.",
+  "id": "/ar",
+  "start_url": "/ar",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#050b13",
+  "theme_color": "#050b13",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "/icons/icon-192-v2.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512-v2.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "تسجيل الدخول",
+      "short_name": "Login",
+      "url": "/ar/login",
+      "icons": [{ "src": "/icons/icon-192-v2.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "الدروس",
+      "short_name": "Cours",
+      "url": "/ar/courses",
+      "icons": [{ "src": "/icons/icon-192-v2.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "البث المباشر",
+      "short_name": "Live",
+      "url": "/ar/live",
+      "icons": [{ "src": "/icons/icon-192-v2.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}

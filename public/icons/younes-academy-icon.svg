@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">Younes Academy</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10263d"/>
+      <stop offset="1" stop-color="#03080f"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".55" stop-color="#2fe5df"/>
+      <stop offset="1" stop-color="#12bcb7"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="104" fill="url(#bg)"/>
+  <rect x="18" y="18" width="476" height="476" rx="88" fill="none" stroke="url(#cyan)" stroke-width="7"/>
+  <circle cx="256" cy="230" r="160" fill="none" stroke="#12d6d0" stroke-opacity=".25" stroke-width="4"/>
+  <text x="256" y="255" fill="url(#cyan)" font-family="Arial, sans-serif" font-size="168" font-weight="800" text-anchor="middle">YA</text>
+  <path d="M150 312h212" stroke="#f7fbfc" stroke-width="8" stroke-linecap="round" opacity=".9"/>
+  <text x="256" y="370" fill="#f7fbfc" font-family="Arial, sans-serif" font-size="28" font-weight="700" text-anchor="middle" letter-spacing="7">MATHS</text>
+  <text x="256" y="415" fill="#2fe5df" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="middle" letter-spacing="5">1AC · 2AC · 3AC</text>
+</svg>

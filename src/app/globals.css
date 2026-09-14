@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@theme {
+  --color-board-900: #050b13;
+  --color-board-800: #08121d;
+  --color-board-700: #0d1b29;
+  --color-board-600: #142537;
+  --color-petrol: #0a1825;
+  --color-chalk: #f7fbfc;
+  --color-chalk-dim: #a9bdc4;
+  --color-accent: #12d6d0;
+  --color-accent-soft: #78f5ef;
+  --color-violet: #6fb4c0;
+
+  --font-sans: var(--font-latin), system-ui, sans-serif;
+  --font-display: var(--font-latin), system-ui, sans-serif;
+  --font-ar: var(--font-arabic), var(--font-latin), system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-board-900);
+  color: var(--color-chalk);
+  background-image:
+    radial-gradient(circle at 14% 4%, rgba(18, 214, 208, 0.1), transparent 30rem),
+    radial-gradient(circle at 88% 18%, rgba(74, 101, 131, 0.12), transparent 34rem),
+    linear-gradient(155deg, #040a12 0%, #07111c 48%, #091725 100%);
+  background-attachment: fixed;
+}
+
+.graph-paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(18, 214, 208, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(18, 214, 208, 0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(ellipse at 50% 0%, black 0%, transparent 84%);
+}
+
+[dir="rtl"] body {
+  font-family: var(--font-ar);
+  letter-spacing: 0;
+}
+
+[dir="ltr"] body {
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: #070b11;
+}
+
+.brand-text {
+  color: #12d6d0;
+  background: linear-gradient(110deg, #ffffff 0%, #78f5ef 45%, #12d6d0 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-button {
+  color: #041114;
+  background: linear-gradient(135deg, #78f5ef 0%, #2fe5df 48%, #12bcb7 100%);
+  box-shadow: 0 12px 36px rgba(18, 214, 208, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+.premium-panel {
+  border: 1px solid rgba(18, 214, 208, 0.2);
+  background: linear-gradient(150deg, rgba(13, 27, 41, 0.9), rgba(5, 11, 19, 0.9));
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+.premium-hero-grid {
+  direction: ltr;
+}
+
+[dir="rtl"] .premium-hero-copy {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="ltr"] .premium-hero-copy {
+  direction: ltr;
+  text-align: left;
+}
+
+.portrait-frame {
+  position: relative;
+  isolation: isolate;
+  border-radius: 1.8rem;
+  overflow: hidden;
+  border: 1px solid rgba(18, 214, 208, 0.38);
+  background: linear-gradient(160deg, rgba(18, 214, 208, 0.12), rgba(5, 11, 19, 0.95));
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.55), 0 0 50px rgba(18, 214, 208, 0.08), 0 0 0 1px rgba(255, 255, 255, 0.025) inset;
+}
+
+.portrait-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(18, 214, 208, 0.09), transparent 38%);
+}
+
+.portrait-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(5, 11, 19, 0.9) 0%, rgba(5, 11, 19, 0.02) 54%);
+}
+
+.orbit-slow {
+  transform-origin: 50% 50%;
+  animation: orbit-spin 42s linear infinite;
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-slow {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

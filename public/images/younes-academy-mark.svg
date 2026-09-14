@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" role="img" aria-labelledby="title desc">
+  <title id="title">Younes Academy Maths Collège</title>
+  <desc id="desc">علامة مؤقتة لمنصة Younes Academy إلى حين إضافة الصورة الرسمية.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10263d"/>
+      <stop offset=".55" stop-color="#07111c"/>
+      <stop offset="1" stop-color="#03080f"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".5" stop-color="#2fe5df"/>
+      <stop offset="1" stop-color="#12bcb7"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="36%" r="58%">
+      <stop offset="0" stop-color="#12d6d0" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#12d6d0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#bg)"/>
+  <rect width="1200" height="1500" fill="url(#glow)"/>
+  <g fill="none" stroke="#12d6d0" opacity=".16">
+    <circle cx="600" cy="610" r="420"/>
+    <circle cx="600" cy="610" r="330"/>
+    <path d="M120 360h960M120 860h960M350 120v980M850 120v980"/>
+  </g>
+  <g transform="translate(600 570)">
+    <rect x="-255" y="-255" width="510" height="510" rx="118" fill="#07111c" stroke="url(#cyan)" stroke-width="6"/>
+    <text x="0" y="-55" fill="url(#cyan)" font-family="Arial, sans-serif" font-size="176" font-weight="800" text-anchor="middle">YA</text>
+    <path d="M-128 92h256M0-36v256" stroke="#f7fbfc" stroke-width="18" stroke-linecap="round" opacity=".94"/>
+    <circle cx="-112" cy="204" r="15" fill="#12d6d0"/>
+    <circle cx="112" cy="204" r="15" fill="#12d6d0"/>
+  </g>
+  <text x="600" y="1110" fill="#f7fbfc" font-family="Arial, sans-serif" font-size="78" font-weight="800" text-anchor="middle" letter-spacing="12">YOUNES</text>
+  <text x="600" y="1205" fill="#2fe5df" font-family="Arial, sans-serif" font-size="38" font-weight="700" text-anchor="middle" letter-spacing="16">MATHS ACADEMY</text>
+  <text x="600" y="1300" fill="#a9bdc4" font-family="Arial, sans-serif" font-size="32" text-anchor="middle">1AC · 2AC · 3AC</text>
+</svg>

@@ -1,0 +1,136 @@
+import type { Dictionary } from "./ar";
+
+export const fr: Dictionary = {
+  meta: {
+    title: "Younes Academy — Mathématiques Collège",
+    description: "Une plateforme de mathématiques pour les élèves de 1AC, 2AC et 3AC : cours, exercices, devoirs, lives et suivi de progression.",
+  },
+  common: {
+    brand: "YOUNES",
+    brandSuffix: "Academy",
+    skipToContent: "Aller au contenu",
+    instagram: "@younes.digital7",
+    languageLabel: "Langue",
+  },
+  nav: {
+    about: "La plateforme",
+    cours: "Cours",
+    lives: "Sessions live",
+    replays: "Replays",
+    exercices: "Exercices",
+    cta: "Espace élèves",
+  },
+  hero: {
+    badge: "Mathématiques Collège • 1AC · 2AC · 3AC",
+    name: "Younes Harti — Younes Academy",
+    title: "Comprendre les mathématiques étape par étape",
+    description: "Des cours simplifiés, des exercices progressifs et des devoirs corrigés, organisés par niveau pour comprendre les règles et les appliquer avec confiance.",
+    primaryCta: "Espace élèves",
+    secondaryCta: "Découvrir le programme",
+    imageAlt: "Portrait de Younes Harti, fondateur de Younes Academy",
+    imageCaption: "Maths Collège",
+    stats: [
+      { value: "1AC · 2AC · 3AC", label: "Niveaux" },
+      { value: "Cours + Exercices", label: "Comprendre & pratiquer" },
+      { value: "Lives + Replays", label: "Suivi & révision" },
+    ],
+  },
+  positioning: {
+    eyebrow: "Méthode",
+    title: "Comprendre la règle, puis maîtriser l'application",
+    lead: "Le contenu est organisé autour de deux piliers essentiels du programme de mathématiques au collège.",
+    physics: {
+      title: "Nombres & algèbre",
+      description: "Une progression claire en calcul, nombres, équations et proportionnalité avec exemples et exercices.",
+      items: ["Nombres & calcul", "Fractions & puissances", "Équations", "Proportionnalité"],
+    },
+    chemistry: {
+      title: "Géométrie & mesure",
+      description: "Comprendre les figures, transformations et constructions, puis utiliser les propriétés pour résoudre les problèmes.",
+      items: ["Triangles", "Cercle", "Transformations", "Aires & volumes"],
+    },
+  },
+  about: {
+    eyebrow: "La plateforme",
+    title: "Une plateforme dédiée aux mathématiques du collège",
+    paragraphs: [
+      "Younes Academy réunit cours, exercices, devoirs et corrections dans un parcours clair pour chaque niveau.",
+      "L'objectif est d'aider l'élève à comprendre les notions, s'entraîner régulièrement et suivre sa progression sans dispersion.",
+      "Le contenu est conçu et présenté par Younes Harti selon une méthode pratique : comprendre, appliquer, puis documenter les progrès.",
+    ],
+    points: ["Explications claires et progressives", "Exercices du plus simple au plus avancé", "Suivi des cours et des résultats"],
+  },
+  offers: [
+    {
+      id: "cours",
+      eyebrow: "Cours",
+      title: "Des cours organisés par niveau",
+      description: "Chaque leçon propose une explication ciblée, des exemples corrigés et un résumé des règles.",
+      items: ["Programmes 1AC, 2AC et 3AC", "Exemples corrigés", "Fiches téléchargeables"],
+    },
+    {
+      id: "lives",
+      eyebrow: "Sessions live",
+      title: "Des lives pour comprendre et corriger",
+      description: "Révision des cours, réponses aux questions et correction d'exercices avec le groupe.",
+      items: ["Planning clair", "Questions / réponses", "Correction collective"],
+    },
+    {
+      id: "replays",
+      eyebrow: "Replays",
+      title: "Une bibliothèque de séances enregistrées",
+      description: "Les séances sont classées par niveau et par chapitre dans le compte de l'élève.",
+      items: ["Archive organisée", "Révision à tout moment", "Accès par abonnement"],
+    },
+    {
+      id: "exercices",
+      eyebrow: "Exercices & devoirs",
+      title: "Des applications et évaluations corrigées",
+      description: "Des exercices progressifs, quiz et devoirs pour mesurer la compréhension et améliorer les résultats.",
+      items: ["Exercices par leçon", "Devoirs surveillés", "Correction & résultats"],
+    },
+  ],
+  why: {
+    eyebrow: "Pourquoi Younes Academy ?",
+    title: "Un parcours clair pour progresser en maths",
+    items: [
+      { title: "Une explication par étapes", description: "La règle, l'exemple puis l'exercice dans un ordre facile à suivre." },
+      { title: "Un contenu par niveau", description: "Chaque élève retrouve le programme de 1AC, 2AC ou 3AC organisé par chapitre." },
+      { title: "Un entraînement continu", description: "Exercices, quiz et devoirs transforment la compréhension en maîtrise." },
+      { title: "Un seul espace élève", description: "Cours, replays, résultats et progression sont réunis dans la plateforme." },
+    ],
+  },
+  instagram: {
+    eyebrow: "Contenu gratuit",
+    title: "Astuces et exercices courts avec Younes Academy",
+    description: "Des rappels de règles et des exercices sélectionnés en format court, avec les parcours complets dans la plateforme.",
+    cta: "Suivre sur Instagram",
+    handle: "@younes.digital7",
+    posts: [
+      { tag: "1AC", title: "Une règle et un exercice rapide", kind: "Post" },
+      { tag: "2AC", title: "Résoudre un problème pas à pas", kind: "Reel" },
+      { tag: "3AC", title: "Préparer un devoir ou l'examen", kind: "Reel" },
+      { tag: "Algèbre", title: "Une erreur fréquente en calcul", kind: "Post" },
+      { tag: "Géométrie", title: "Une construction expliquée", kind: "Reel" },
+      { tag: "Conseil", title: "Comment réviser les maths ?", kind: "Post" },
+    ],
+  },
+  cta: {
+    eyebrow: "Espace élèves",
+    title: "Tout le programme de mathématiques au même endroit",
+    description: "L'accès est activé par l'administration après validation de l'inscription. Le compte réunit les cours, lives, replays, exercices et résultats du niveau de l'élève.",
+    primary: "Espace élèves",
+    secondary: "Découvrir le programme",
+  },
+  contact: {
+    title: "Contact",
+    instagramLabel: "Instagram",
+    emailLabel: "E-mail",
+    email: "",
+  },
+  footer: {
+    tagline: "Mathématiques Collège — 1AC · 2AC · 3AC",
+    rights: "Tous droits réservés",
+    phase: "Version 1",
+  },
+};
