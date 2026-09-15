@@ -6,7 +6,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "npm run test:access && npm run reset:admin-once",
+    "prebuild": "npm run test:access",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -18,7 +18,6 @@
     "test:qa": "npm run test:auth && npm run test:subscriptions && npm run test:academic && npm run test:access",
     "seed:core-users": "node scripts/seed-core-users.mjs",
     "seed:academic": "node scripts/seed-academic-core.mjs",
-    "reset:admin-once": "node scripts/reset-admin-once.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "db:generate": "drizzle-kit generate",
