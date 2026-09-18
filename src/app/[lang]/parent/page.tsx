@@ -1,8 +1,9 @@
-import { and, asc, eq } from "drizzle-orm";
+import { and, asc, desc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { db } from "@/db";
+import { academyAttendance } from "@/db/academy-operations-schema";
 import { academyRooms, academyWeeklySessions } from "@/db/academy-management-schema";
 import {
   groups,
@@ -81,7 +82,7 @@ export default async function ParentDashboardPage({
 
   const childCards = await Promise.all(
     children.map(async (child) => {
-      const [access, schedule] = await Promise.all([
+      const [access, schedule, attendance] = await Promise.all([
         getStudentSubscriptionAccess(child.userId).catch(() => ({ state: "NONE" as const })),
         child.groupId
           ? db
@@ -103,6 +104,26 @@ export default async function ParentDashboardPage({
                 ),
               )
           : Promise.resolve([]),
+        db
+          .select({
+            id: academyAttendance.id,
+            sessionDate: academyAttendance.sessionDate,
+            status: academyAttendance.status,
+            note: academyAttendance.note,
+            subjectName: subjects.name,
+          })
+          .from(academyAttendance)
+          .innerJoin(
+            academyWeeklySessions,
+            eq(academyAttendance.weeklySessionId, academyWeeklySessions.id),
+          )
+          .innerJoin(subjects, eq(academyWeeklySessions.subjectId, subjects.id))
+          .where(eq(academyAttendance.studentProfileId, child.profileId))
+          .orderBy(
+            desc(academyAttendance.sessionDate),
+            desc(academyAttendance.markedAt),
+          )
+          .limit(12),
       ]);
 
       const sortedSchedule = [...schedule].sort((a, b) => {
@@ -112,7 +133,7 @@ export default async function ParentDashboardPage({
         return a.startsAt.localeCompare(b.startsAt);
       });
 
-      return { child, access, schedule: sortedSchedule };
+      return { child, access, schedule: sortedSchedule, attendance };
     }),
   );
 
@@ -151,7 +172,7 @@ export default async function ParentDashboardPage({
           </section>
         ) : (
           <div className="mt-6 space-y-6">
-            {childCards.map(({ child, access, schedule }) => (
+            {childCards.map(({ child, access, schedule, attendance }) => (
               <section
                 key={child.profileId}
                 className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04]"
@@ -208,6 +229,47 @@ export default async function ParentDashboardPage({
                     </div>
                   )}
                 </div>
+
+                <div className="border-t border-white/10 p-6">
+                  <div className="mb-4 flex items-center justify-between gap-4">
+                    <h2 className="text-lg font-black">
+                      {rtl ? "آخر سجلات الحضور" : "Dernières présences"}
+                    </h2>
+                    <span className="text-xs text-white/35">
+                      {attendance.length} {rtl ? "سجل" : "enregistrements"}
+                    </span>
+                  </div>
+
+                  {attendance.length === 0 ? (
+                    <p className="rounded-2xl border border-dashed border-white/10 p-5 text-sm text-white/35">
+                      {rtl
+                        ? "مازال ما تسجل حتى حضور لهذا التلميذ."
+                        : "Aucune présence n’a encore été enregistrée pour cet élève."}
+                    </p>
+                  ) : (
+                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                      {attendance.map((item) => (
+                        <div
+                          key={item.id}
+                          className="rounded-2xl border border-white/10 bg-black/10 p-4"
+                        >
+                          <div className="flex items-center justify-between gap-3">
+                            <p className="font-black">{item.subjectName}</p>
+                            <AttendanceBadge status={item.status} rtl={rtl} />
+                          </div>
+                          <p className="mt-2 text-xs text-white/45">
+                            {item.sessionDate}
+                          </p>
+                          {item.note && (
+                            <p className="mt-2 text-xs leading-6 text-white/55">
+                              {item.note}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </section>
             ))}
           </div>
@@ -223,6 +285,34 @@ export default async function ParentDashboardPage({
         </footer>
       </div>
     </main>
+  );
+}
+
+function AttendanceBadge({
+  status,
+  rtl,
+}: {
+  status: "PRESENT" | "ABSENT" | "LATE" | "EXCUSED";
+  rtl: boolean;
+}) {
+  const labels = {
+    PRESENT: rtl ? "حاضر" : "Présent",
+    ABSENT: rtl ? "غائب" : "Absent",
+    LATE: rtl ? "متأخر" : "Retard",
+    EXCUSED: rtl ? "مبرر" : "Excusé",
+  };
+
+  const styles = {
+    PRESENT: "border-emerald-300/20 bg-emerald-300/10 text-emerald-300",
+    ABSENT: "border-red-300/20 bg-red-300/10 text-red-300",
+    LATE: "border-amber-300/20 bg-amber-300/10 text-amber-200",
+    EXCUSED: "border-sky-300/20 bg-sky-300/10 text-sky-300",
+  };
+
+  return (
+    <span className={`rounded-full border px-2.5 py-1 text-[11px] font-black ${styles[status]}`}>
+      {labels[status]}
+    </span>
   );
 }
 
