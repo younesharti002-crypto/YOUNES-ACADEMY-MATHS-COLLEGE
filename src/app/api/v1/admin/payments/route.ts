@@ -5,10 +5,7 @@ import {
   academyBillingItems,
   academyPaymentTransactions,
 } from "@/db/academy-finance-schema";
-import {
-  academySubjectLoads,
-  academyWeeklySessions,
-} from "@/db/academy-management-schema";
+import { academySubjectLoads } from "@/db/academy-management-schema";
 import {
   groups,
   levels,
