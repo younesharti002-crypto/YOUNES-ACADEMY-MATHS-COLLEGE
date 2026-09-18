@@ -6,13 +6,16 @@ type Student = {
   profileId: string;
   fullName: string;
   studentCode: string;
+  levelId: string;
+  streamId: string | null;
   levelName: string;
   groupId: string | null;
   groupName: string | null;
 };
 
 type Scope = {
-  groupId: string;
+  levelId: string;
+  streamId: string | null;
   subjectId: string;
   subjectName: string;
 };
@@ -94,8 +97,12 @@ export function PaymentsClient({ locale }: { locale: "ar" | "fr" }) {
   );
 
   const availableSubjects = useMemo(() => {
-    if (!currentStudent?.groupId) return [];
-    return data.scopes.filter((scope) => scope.groupId === currentStudent.groupId);
+    if (!currentStudent) return [];
+    return data.scopes.filter(
+      (scope) =>
+        scope.levelId === currentStudent.levelId &&
+        (scope.streamId ?? null) === (currentStudent.streamId ?? null),
+    );
   }, [currentStudent, data.scopes]);
 
   const totals = useMemo(() => {
