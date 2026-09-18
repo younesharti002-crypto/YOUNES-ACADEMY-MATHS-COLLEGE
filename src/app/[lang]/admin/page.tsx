@@ -54,6 +54,12 @@ export default async function AdminHomePage({
 
             <div className="flex flex-wrap gap-3">
               <Link
+                href={`/${lang}/admin/planning`}
+                className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-bold text-white/80 transition hover:bg-white/5"
+              >
+                {rtl ? "التخطيط المباشر" : "Planning live"}
+              </Link>
+              <Link
                 href={`/${lang}/admin/academic`}
                 className="rounded-full bg-accent px-5 py-2.5 text-sm font-black text-board-900 transition hover:bg-accent-soft"
               >
