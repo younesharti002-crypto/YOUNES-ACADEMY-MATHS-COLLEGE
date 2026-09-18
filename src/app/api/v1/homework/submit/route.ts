@@ -203,14 +203,19 @@ export async function POST(request: NextRequest) {
       submissionId = created.id;
     }
 
+    if (!submissionId) {
+      throw new Error("Submission id was not created.");
+    }
+
+    const finalSubmissionId = submissionId;
     await tx.insert(academySubmissionFiles).values(
       preparedFiles.map((file) => ({
-        submissionId,
+        submissionId: finalSubmissionId,
         ...file,
       })),
     );
 
-    return { id: submissionId };
+    return { id: finalSubmissionId };
   });
 
   return NextResponse.json(
