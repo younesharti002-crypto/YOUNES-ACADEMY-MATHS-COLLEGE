@@ -5,13 +5,18 @@ import { academyWeeklySessions } from "@/db/academy-management-schema";
 import { studentProfiles } from "@/db/schema";
 import type { AuthenticatedSession } from "@/lib/auth/session";
 
-export async function teacherCanAccessGroup(userId: string, groupId: string) {
+export async function teacherCanAccessGroupSubject(
+  userId: string,
+  groupId: string,
+  subjectId: string,
+) {
   const [row] = await db
     .select({ id: academyWeeklySessions.id })
     .from(academyWeeklySessions)
     .where(
       and(
         eq(academyWeeklySessions.groupId, groupId),
+        eq(academyWeeklySessions.subjectId, subjectId),
         eq(academyWeeklySessions.teacherUserId, userId),
       ),
     )
@@ -36,7 +41,11 @@ export async function getAccessibleAssignment(
 
   if (session.user.role === "TEACHER") {
     if (assignment.teacherUserId === session.user.id) return assignment;
-    return (await teacherCanAccessGroup(session.user.id, assignment.groupId))
+    return (await teacherCanAccessGroupSubject(
+      session.user.id,
+      assignment.groupId,
+      assignment.subjectId,
+    ))
       ? assignment
       : null;
   }
