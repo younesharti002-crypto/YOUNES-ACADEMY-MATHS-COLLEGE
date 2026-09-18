@@ -20,6 +20,7 @@ export default async function DashboardPage({ params }: { params: Promise<{ lang
 
   if (session.user.role === "TEACHER") redirect(`/${lang}/studio`);
   if (session.user.role === "ADMIN") redirect(`/${lang}/admin`);
+  if (session.user.role === "PARENT") redirect(`/${lang}/parent`);
   if (session.user.role !== "STUDENT") redirect(`/${lang}/login`);
 
   const dashboard = await (async () => {
