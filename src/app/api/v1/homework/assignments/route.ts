@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, inArray, or } from "drizzle-orm";
+import { and, asc, desc, eq, inArray } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import {
@@ -197,58 +197,35 @@ export async function GET(request: NextRequest) {
       .innerJoin(subjects, eq(academyAssignments.subjectId, subjects.id))
       .orderBy(desc(academyAssignments.createdAt));
   } else {
-    const groupRows = await db
-      .select({ groupId: academyWeeklySessions.groupId })
-      .from(academyWeeklySessions)
-      .where(eq(academyWeeklySessions.teacherUserId, session.user.id));
-
-    const groupIds = [...new Set(groupRows.map((row) => row.groupId))];
-
-    assignments =
-      groupIds.length > 0
-        ? await db
-            .select({
-              id: academyAssignments.id,
-              title: academyAssignments.title,
-              instructions: academyAssignments.instructions,
-              dueAt: academyAssignments.dueAt,
-              published: academyAssignments.published,
-              groupId: academyAssignments.groupId,
-              groupName: groups.name,
-              subjectId: academyAssignments.subjectId,
-              subjectName: subjects.name,
-              teacherUserId: academyAssignments.teacherUserId,
-              createdAt: academyAssignments.createdAt,
-            })
-            .from(academyAssignments)
-            .innerJoin(groups, eq(academyAssignments.groupId, groups.id))
-            .innerJoin(subjects, eq(academyAssignments.subjectId, subjects.id))
-            .where(
-              or(
-                eq(academyAssignments.teacherUserId, session.user.id),
-                inArray(academyAssignments.groupId, groupIds),
-              ),
-            )
-            .orderBy(desc(academyAssignments.createdAt))
-        : await db
-            .select({
-              id: academyAssignments.id,
-              title: academyAssignments.title,
-              instructions: academyAssignments.instructions,
-              dueAt: academyAssignments.dueAt,
-              published: academyAssignments.published,
-              groupId: academyAssignments.groupId,
-              groupName: groups.name,
-              subjectId: academyAssignments.subjectId,
-              subjectName: subjects.name,
-              teacherUserId: academyAssignments.teacherUserId,
-              createdAt: academyAssignments.createdAt,
-            })
-            .from(academyAssignments)
-            .innerJoin(groups, eq(academyAssignments.groupId, groups.id))
-            .innerJoin(subjects, eq(academyAssignments.subjectId, subjects.id))
-            .where(eq(academyAssignments.teacherUserId, session.user.id))
-            .orderBy(desc(academyAssignments.createdAt));
+    assignments = await db
+      .selectDistinct({
+        id: academyAssignments.id,
+        title: academyAssignments.title,
+        instructions: academyAssignments.instructions,
+        dueAt: academyAssignments.dueAt,
+        published: academyAssignments.published,
+        groupId: academyAssignments.groupId,
+        groupName: groups.name,
+        subjectId: academyAssignments.subjectId,
+        subjectName: subjects.name,
+        teacherUserId: academyAssignments.teacherUserId,
+        createdAt: academyAssignments.createdAt,
+      })
+      .from(academyAssignments)
+      .innerJoin(groups, eq(academyAssignments.groupId, groups.id))
+      .innerJoin(subjects, eq(academyAssignments.subjectId, subjects.id))
+      .innerJoin(
+        academyWeeklySessions,
+        and(
+          eq(academyWeeklySessions.groupId, academyAssignments.groupId),
+          eq(academyWeeklySessions.subjectId, academyAssignments.subjectId),
+          eq(
+            academyWeeklySessions.teacherUserId,
+            session.user.id,
+          ),
+        ),
+      )
+      .orderBy(desc(academyAssignments.createdAt));
   }
 
   const scopes =
