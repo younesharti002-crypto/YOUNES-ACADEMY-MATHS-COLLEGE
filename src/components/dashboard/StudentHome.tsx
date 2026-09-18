@@ -81,7 +81,7 @@ export function StudentHome({
     { href: `/${locale}/dashboard`, icon: "⌂", label: ar ? "الرئيسية" : "Accueil", active: true },
     { href: `/${locale}/courses`, icon: "▣", label: ar ? "دروسي" : "Mes cours" },
     { href: `/${locale}/live`, icon: "▶", label: ar ? "التسجيلات" : "Replays" },
-    { href: `/${locale}/assessments`, icon: "✎", label: ar ? "التمارين" : "Exercices" },
+    { href: `/${locale}/homework`, icon: "✎", label: ar ? "الواجبات" : "Devoirs" },
     { href: `/${locale}/assessments`, icon: "▥", label: ar ? "النتائج" : "Résultats" },
   ];
 
@@ -304,6 +304,9 @@ export function StudentHome({
                   </Link>
                   <Link href={`/${locale}/live`} className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-3 text-sm font-bold transition hover:border-accent/30 hover:bg-white/[0.07]">
                     <span>{ar ? "Live & Replays" : "Lives & replays"}</span><span className="text-accent">←</span>
+                  </Link>
+                  <Link href={`/${locale}/homework`} className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-3 text-sm font-bold transition hover:border-accent/30 hover:bg-white/[0.07]">
+                    <span>{ar ? "الواجبات والتصحيح" : "Devoirs & corrections"}</span><span className="text-accent">←</span>
                   </Link>
                   <Link href={`/${locale}/assessments`} className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.045] px-4 py-3 text-sm font-bold transition hover:border-accent/30 hover:bg-white/[0.07]">
                     <span>{ar ? "التمارين والاختبارات" : "Exercices & quiz"}</span><span className="text-accent">←</span>

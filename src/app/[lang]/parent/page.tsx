@@ -3,7 +3,12 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { db } from "@/db";
-import { academyAttendance } from "@/db/academy-operations-schema";
+import {
+  academyAssignments,
+  academyAttendance,
+  academyCorrections,
+  academySubmissions,
+} from "@/db/academy-operations-schema";
 import { academyRooms, academyWeeklySessions } from "@/db/academy-management-schema";
 import {
   groups,
@@ -82,7 +87,7 @@ export default async function ParentDashboardPage({
 
   const childCards = await Promise.all(
     children.map(async (child) => {
-      const [access, schedule, attendance] = await Promise.all([
+      const [access, schedule, attendance, homework] = await Promise.all([
         getStudentSubscriptionAccess(child.userId).catch(() => ({ state: "NONE" as const })),
         child.groupId
           ? db
@@ -124,6 +129,41 @@ export default async function ParentDashboardPage({
             desc(academyAttendance.markedAt),
           )
           .limit(12),
+        child.groupId
+          ? db
+              .select({
+                id: academyAssignments.id,
+                title: academyAssignments.title,
+                subjectName: subjects.name,
+                dueAt: academyAssignments.dueAt,
+                submissionStatus: academySubmissions.status,
+                submittedAt: academySubmissions.submittedAt,
+                score: academyCorrections.score,
+                scoreMax: academyCorrections.scoreMax,
+                correctionComment: academyCorrections.comment,
+              })
+              .from(academyAssignments)
+              .innerJoin(subjects, eq(academyAssignments.subjectId, subjects.id))
+              .leftJoin(
+                academySubmissions,
+                and(
+                  eq(academySubmissions.assignmentId, academyAssignments.id),
+                  eq(academySubmissions.studentProfileId, child.profileId),
+                ),
+              )
+              .leftJoin(
+                academyCorrections,
+                eq(academyCorrections.submissionId, academySubmissions.id),
+              )
+              .where(
+                and(
+                  eq(academyAssignments.groupId, child.groupId),
+                  eq(academyAssignments.published, true),
+                ),
+              )
+              .orderBy(desc(academyAssignments.createdAt))
+              .limit(10)
+          : Promise.resolve([]),
       ]);
 
       const sortedSchedule = [...schedule].sort((a, b) => {
@@ -133,7 +173,7 @@ export default async function ParentDashboardPage({
         return a.startsAt.localeCompare(b.startsAt);
       });
 
-      return { child, access, schedule: sortedSchedule, attendance };
+      return { child, access, schedule: sortedSchedule, attendance, homework };
     }),
   );
 
@@ -172,7 +212,7 @@ export default async function ParentDashboardPage({
           </section>
         ) : (
           <div className="mt-6 space-y-6">
-            {childCards.map(({ child, access, schedule, attendance }) => (
+            {childCards.map(({ child, access, schedule, attendance, homework }) => (
               <section
                 key={child.profileId}
                 className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04]"
@@ -270,6 +310,71 @@ export default async function ParentDashboardPage({
                     </div>
                   )}
                 </div>
+
+                <div className="border-t border-white/10 p-6">
+                  <div className="mb-4 flex items-center justify-between gap-4">
+                    <h2 className="text-lg font-black">
+                      {rtl ? "الواجبات والنتائج" : "Devoirs & résultats"}
+                    </h2>
+                    <span className="text-xs text-white/35">
+                      {homework.length} {rtl ? "واجب" : "devoir(s)"}
+                    </span>
+                  </div>
+
+                  {homework.length === 0 ? (
+                    <p className="rounded-2xl border border-dashed border-white/10 p-5 text-sm text-white/35">
+                      {rtl
+                        ? "مازال ما كاين حتى واجب منشور لهذا التلميذ."
+                        : "Aucun devoir publié pour cet élève."}
+                    </p>
+                  ) : (
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {homework.map((item) => (
+                        <div
+                          key={item.id}
+                          className="rounded-2xl border border-white/10 bg-black/10 p-4"
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div>
+                              <p className="text-xs font-black text-accent">
+                                {item.subjectName}
+                              </p>
+                              <p className="mt-1 font-black">{item.title}</p>
+                            </div>
+                            <HomeworkBadge
+                              status={item.submissionStatus}
+                              rtl={rtl}
+                            />
+                          </div>
+                          {item.dueAt ? (
+                            <p className="mt-2 text-xs text-white/40">
+                              {rtl ? "آخر أجل" : "Échéance"}:{" "}
+                              {new Intl.DateTimeFormat(
+                                rtl ? "ar-MA" : "fr-MA",
+                                { dateStyle: "medium" },
+                              ).format(new Date(item.dueAt))}
+                            </p>
+                          ) : null}
+                          {item.submissionStatus === "CORRECTED" ? (
+                            <div className="mt-3 rounded-xl border border-emerald-300/15 bg-emerald-300/[0.06] p-3">
+                              {item.score !== null ? (
+                                <p className="font-black text-emerald-300">
+                                  {item.score}
+                                  {item.scoreMax ? ` / ${item.scoreMax}` : ""}
+                                </p>
+                              ) : null}
+                              {item.correctionComment ? (
+                                <p className="mt-1 text-xs leading-6 text-emerald-100/65">
+                                  {item.correctionComment}
+                                </p>
+                              ) : null}
+                            </div>
+                          ) : null}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </section>
             ))}
           </div>
@@ -285,6 +390,42 @@ export default async function ParentDashboardPage({
         </footer>
       </div>
     </main>
+  );
+}
+
+function HomeworkBadge({
+  status,
+  rtl,
+}: {
+  status: "SUBMITTED" | "IN_REVIEW" | "CORRECTED" | null;
+  rtl: boolean;
+}) {
+  const label = !status
+    ? rtl
+      ? "مطلوب"
+      : "À faire"
+    : status === "SUBMITTED"
+      ? rtl
+        ? "تم الإرسال"
+        : "Envoyé"
+      : status === "IN_REVIEW"
+        ? rtl
+          ? "قيد التصحيح"
+          : "En correction"
+        : rtl
+          ? "مصحح"
+          : "Corrigé";
+
+  const style = !status
+    ? "border-amber-300/20 bg-amber-300/10 text-amber-200"
+    : status === "CORRECTED"
+      ? "border-emerald-300/20 bg-emerald-300/10 text-emerald-300"
+      : "border-sky-300/20 bg-sky-300/10 text-sky-300";
+
+  return (
+    <span className={`shrink-0 rounded-full border px-2.5 py-1 text-[11px] font-black ${style}`}>
+      {label}
+    </span>
   );
 }
 
