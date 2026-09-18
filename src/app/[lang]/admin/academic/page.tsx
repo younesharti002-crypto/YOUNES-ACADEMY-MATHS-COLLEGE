@@ -24,7 +24,13 @@ export default async function AcademicAdminPage({
 
   return (
     <div className="relative">
-      <div className="fixed right-4 top-4 z-50 flex gap-2" dir={locale === "ar" ? "rtl" : "ltr"}>
+      <div className="fixed right-4 top-4 z-50 flex flex-wrap gap-2" dir={locale === "ar" ? "rtl" : "ltr"}>
+        <Link
+          href={`/${locale}/admin`}
+          className="rounded-full border border-accent/25 bg-accent/10 px-4 py-2 text-sm font-semibold text-accent shadow-lg backdrop-blur transition hover:bg-accent/15"
+        >
+          {locale === "ar" ? "لوحة Academy" : "Dashboard Academy"}
+        </Link>
         <Link
           href={`/${locale}/admin/security`}
           className="rounded-full border border-white/15 bg-board-900/90 px-4 py-2 text-sm font-semibold text-chalk shadow-lg backdrop-blur transition hover:bg-white/10"
