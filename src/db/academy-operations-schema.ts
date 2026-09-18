@@ -1,5 +1,7 @@
+import { sql } from "drizzle-orm";
 import {
   boolean,
+  check,
   customType,
   date,
   index,
@@ -141,7 +143,13 @@ export const academySubmissionFiles = pgTable(
     content: bytea("content").notNull(),
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   },
-  (table) => [index("academy_submission_files_submission_idx").on(table.submissionId)],
+  (table) => [
+    index("academy_submission_files_submission_idx").on(table.submissionId),
+    check(
+      "academy_submission_files_size_check",
+      sql`${table.sizeBytes} > 0 and ${table.sizeBytes} <= 5242880`,
+    ),
+  ],
 );
 
 export const academyCorrections = pgTable(
@@ -163,6 +171,18 @@ export const academyCorrections = pgTable(
   (table) => [
     uniqueIndex("academy_corrections_submission_unique").on(table.submissionId),
     index("academy_corrections_teacher_idx").on(table.teacherUserId),
+    check(
+      "academy_corrections_score_check",
+      sql`${table.score} is null or ${table.score} >= 0`,
+    ),
+    check(
+      "academy_corrections_score_max_check",
+      sql`${table.scoreMax} is null or ${table.scoreMax} > 0`,
+    ),
+    check(
+      "academy_corrections_score_order_check",
+      sql`${table.score} is null or ${table.scoreMax} is null or ${table.score} <= ${table.scoreMax}`,
+    ),
   ],
 );
 
