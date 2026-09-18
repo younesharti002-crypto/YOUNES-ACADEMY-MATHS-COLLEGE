@@ -82,8 +82,16 @@ export default async function DashboardPage({ params }: { params: Promise<{ lang
         progressCompleted={progress.completedLessons}
         progressTotal={progress.totalLessons}
       />
-      <div className="fixed end-5 top-5 z-50 rounded-full border border-emerald-300/25 bg-board-900/90 px-4 py-2 text-xs font-black text-emerald-300 shadow-xl shadow-black/20 backdrop-blur">
-        ● {statusLabel}
+      <div className="fixed end-5 top-5 z-50 flex gap-2">
+        <Link
+          href={`/${lang}/homework`}
+          className="rounded-full border border-accent/25 bg-board-900/90 px-4 py-2 text-xs font-black text-accent shadow-xl shadow-black/20 backdrop-blur"
+        >
+          {lang === "ar" ? "الواجبات" : "Devoirs"}
+        </Link>
+        <span className="rounded-full border border-emerald-300/25 bg-board-900/90 px-4 py-2 text-xs font-black text-emerald-300 shadow-xl shadow-black/20 backdrop-blur">
+          ● {statusLabel}
+        </span>
       </div>
     </>
   );
