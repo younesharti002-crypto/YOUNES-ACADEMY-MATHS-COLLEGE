@@ -37,8 +37,14 @@ export async function POST(request: NextRequest) {
     typeof body.submissionId === "string" && UUID_PATTERN.test(body.submissionId)
       ? body.submissionId
       : null;
-  const score = Number.isInteger(body.score) ? Number(body.score) : null;
-  const scoreMax = Number.isInteger(body.scoreMax) ? Number(body.scoreMax) : null;
+  const score =
+    typeof body.score === "number" && Number.isInteger(body.score)
+      ? body.score
+      : null;
+  const scoreMax =
+    typeof body.scoreMax === "number" && Number.isInteger(body.scoreMax)
+      ? body.scoreMax
+      : null;
   const comment =
     typeof body.comment === "string" && body.comment.trim().length <= 3000
       ? body.comment.trim() || null
