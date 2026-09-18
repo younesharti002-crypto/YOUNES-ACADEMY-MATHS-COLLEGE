@@ -4,6 +4,7 @@ import { db } from "@/db";
 import {
   academyHomework,
   academyHomeworkCorrections,
+  academyHomeworkFiles,
   academyHomeworkSubmissions,
 } from "@/db/academy-operations-schema";
 import { academyWeeklySessions } from "@/db/academy-management-schema";
@@ -111,10 +112,28 @@ export async function GET(request: NextRequest) {
   const allowedGroups = await staffGroupIds(user.id, user.role);
   if (allowedGroups && allowedGroups.length === 0) {
     return NextResponse.json(
-      { data: { assignments: [], submissions: [] } },
+      { data: { assignments: [], submissions: [], files: [], scopes: [] } },
       { headers: { "Cache-Control": "no-store" } },
     );
   }
+
+  const scopeQuery = db
+    .selectDistinct({
+      groupId: academyWeeklySessions.groupId,
+      subjectId: academyWeeklySessions.subjectId,
+      groupName: groups.name,
+      subjectName: subjects.name,
+    })
+    .from(academyWeeklySessions)
+    .innerJoin(groups, eq(academyWeeklySessions.groupId, groups.id))
+    .innerJoin(subjects, eq(academyWeeklySessions.subjectId, subjects.id));
+
+  const scopes =
+    allowedGroups === null
+      ? await scopeQuery.orderBy(asc(groups.name), asc(subjects.name))
+      : await scopeQuery
+          .where(inArray(academyWeeklySessions.groupId, allowedGroups))
+          .orderBy(asc(groups.name), asc(subjects.name));
 
   const assignmentQuery = db
     .select({
@@ -142,7 +161,7 @@ export async function GET(request: NextRequest) {
   const homeworkIds = assignments.map((row) => row.id);
   if (homeworkIds.length === 0) {
     return NextResponse.json(
-      { data: { assignments, submissions: [] } },
+      { data: { assignments, submissions: [], files: [], scopes } },
       { headers: { "Cache-Control": "no-store" } },
     );
   }
@@ -174,8 +193,24 @@ export async function GET(request: NextRequest) {
     .where(inArray(academyHomeworkSubmissions.homeworkId, homeworkIds))
     .orderBy(asc(users.fullName));
 
+  const submissionIds = submissions.map((row) => row.id);
+  const files =
+    submissionIds.length === 0
+      ? []
+      : await db
+          .select({
+            id: academyHomeworkFiles.id,
+            submissionId: academyHomeworkFiles.submissionId,
+            fileName: academyHomeworkFiles.fileName,
+            mimeType: academyHomeworkFiles.mimeType,
+            sizeBytes: academyHomeworkFiles.sizeBytes,
+          })
+          .from(academyHomeworkFiles)
+          .where(inArray(academyHomeworkFiles.submissionId, submissionIds))
+          .orderBy(asc(academyHomeworkFiles.createdAt));
+
   return NextResponse.json(
-    { data: { assignments, submissions } },
+    { data: { assignments, submissions, files, scopes } },
     { headers: { "Cache-Control": "no-store" } },
   );
 }
