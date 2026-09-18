@@ -22,6 +22,12 @@ export default async function StudioPage({ params }: { params: Promise<{ lang: s
         dir={locale === "ar" ? "rtl" : "ltr"}
       >
         <Link
+          href={`/${locale}/homework/manage`}
+          className="rounded-full border border-accent/25 bg-board-900/90 px-4 py-2 text-sm font-black text-accent shadow-lg backdrop-blur transition hover:bg-white/10"
+        >
+          {locale === "ar" ? "الواجبات" : "Devoirs"}
+        </Link>
+        <Link
           href={`/${locale}/attendance`}
           className="rounded-full border border-accent/25 bg-board-900/90 px-4 py-2 text-sm font-black text-accent shadow-lg backdrop-blur transition hover:bg-white/10"
         >
