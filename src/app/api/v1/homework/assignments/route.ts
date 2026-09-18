@@ -4,12 +4,12 @@ import { db } from "@/db";
 import {
   academyAssignments,
   academyCorrections,
+  academySubmissionFiles,
   academySubmissions,
 } from "@/db/academy-operations-schema";
 import { academyWeeklySessions } from "@/db/academy-management-schema";
 import { groups, studentProfiles, subjects } from "@/db/schema";
 import { authorizeRequest } from "@/lib/auth/authorization";
-import { teacherCanAccessGroupSubject } from "@/lib/homework/access";
 
 const UUID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -118,6 +118,41 @@ export async function GET(request: NextRequest) {
       studentSubmissions.map((row) => [row.assignmentId, row]),
     );
 
+    const submissionIds = studentSubmissions.map((row) => row.id);
+    const studentFiles =
+      submissionIds.length === 0
+        ? []
+        : await db
+            .select({
+              id: academySubmissionFiles.id,
+              submissionId: academySubmissionFiles.submissionId,
+              fileName: academySubmissionFiles.fileName,
+              mimeType: academySubmissionFiles.mimeType,
+              sizeBytes: academySubmissionFiles.sizeBytes,
+            })
+            .from(academySubmissionFiles)
+            .where(inArray(academySubmissionFiles.submissionId, submissionIds));
+
+    const filesBySubmission = new Map<
+      string,
+      Array<{
+        id: string;
+        fileName: string;
+        mimeType: string;
+        sizeBytes: number;
+      }>
+    >();
+    for (const file of studentFiles) {
+      const current = filesBySubmission.get(file.submissionId) ?? [];
+      current.push({
+        id: file.id,
+        fileName: file.fileName,
+        mimeType: file.mimeType,
+        sizeBytes: file.sizeBytes,
+      });
+      filesBySubmission.set(file.submissionId, current);
+    }
+
     const cleanAssignments = assignments.map((row) => {
       const submission = submissionByAssignment.get(row.id);
       return {
@@ -130,6 +165,7 @@ export async function GET(request: NextRequest) {
         scoreMax: submission?.scoreMax ?? null,
         correctionComment: submission?.correctionComment ?? null,
         correctedAt: submission?.correctedAt ?? null,
+        files: submission ? filesBySubmission.get(submission.id) ?? [] : [],
       };
     });
 
@@ -215,6 +251,32 @@ export async function GET(request: NextRequest) {
             .orderBy(desc(academyAssignments.createdAt));
   }
 
+  const scopes =
+    session.user.role === "ADMIN"
+      ? await db
+          .selectDistinct({
+            groupId: academyWeeklySessions.groupId,
+            groupName: groups.name,
+            subjectId: academyWeeklySessions.subjectId,
+            subjectName: subjects.name,
+          })
+          .from(academyWeeklySessions)
+          .innerJoin(groups, eq(academyWeeklySessions.groupId, groups.id))
+          .innerJoin(subjects, eq(academyWeeklySessions.subjectId, subjects.id))
+          .orderBy(asc(groups.name), asc(subjects.name))
+      : await db
+          .selectDistinct({
+            groupId: academyWeeklySessions.groupId,
+            groupName: groups.name,
+            subjectId: academyWeeklySessions.subjectId,
+            subjectName: subjects.name,
+          })
+          .from(academyWeeklySessions)
+          .innerJoin(groups, eq(academyWeeklySessions.groupId, groups.id))
+          .innerJoin(subjects, eq(academyWeeklySessions.subjectId, subjects.id))
+          .where(eq(academyWeeklySessions.teacherUserId, session.user.id))
+          .orderBy(asc(groups.name), asc(subjects.name));
+
   const [allGroups, allSubjects] = await Promise.all([
     session.user.role === "ADMIN"
       ? db
@@ -239,7 +301,7 @@ export async function GET(request: NextRequest) {
   ]);
 
   return NextResponse.json(
-    { data: { assignments, groups: allGroups, subjects: allSubjects } },
+    { data: { assignments, groups: allGroups, subjects: allSubjects, scopes } },
     { headers: { "Cache-Control": "no-store" } },
   );
 }
