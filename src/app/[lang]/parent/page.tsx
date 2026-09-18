@@ -10,6 +10,7 @@ import {
   academyHomeworkSubmissions,
 } from "@/db/academy-operations-schema";
 import { academyRooms, academyWeeklySessions } from "@/db/academy-management-schema";
+import { academyBillingItems } from "@/db/academy-finance-schema";
 import {
   groups,
   levels,
@@ -87,7 +88,7 @@ export default async function ParentDashboardPage({
 
   const childCards = await Promise.all(
     children.map(async (child) => {
-      const [access, schedule, attendance, homework] = await Promise.all([
+      const [access, schedule, attendance, homework, billing] = await Promise.all([
         getStudentSubscriptionAccess(child.userId).catch(() => ({ state: "NONE" as const })),
         child.groupId
           ? db
@@ -158,6 +159,20 @@ export default async function ParentDashboardPage({
               .orderBy(desc(academyHomework.createdAt))
               .limit(12)
           : Promise.resolve([]),
+        db
+          .select({
+            id: academyBillingItems.id,
+            billingMonth: academyBillingItems.billingMonth,
+            expectedAmountCentimes: academyBillingItems.expectedAmountCentimes,
+            paidAmountCentimes: academyBillingItems.paidAmountCentimes,
+            status: academyBillingItems.status,
+            subjectName: subjects.name,
+          })
+          .from(academyBillingItems)
+          .innerJoin(subjects, eq(academyBillingItems.subjectId, subjects.id))
+          .where(eq(academyBillingItems.studentProfileId, child.profileId))
+          .orderBy(desc(academyBillingItems.billingMonth))
+          .limit(12),
       ]);
 
       const sortedSchedule = [...schedule].sort((a, b) => {
@@ -167,7 +182,7 @@ export default async function ParentDashboardPage({
         return a.startsAt.localeCompare(b.startsAt);
       });
 
-      return { child, access, schedule: sortedSchedule, attendance, homework };
+      return { child, access, schedule: sortedSchedule, attendance, homework, billing };
     }),
   );
 
@@ -206,7 +221,7 @@ export default async function ParentDashboardPage({
           </section>
         ) : (
           <div className="mt-6 space-y-6">
-            {childCards.map(({ child, access, schedule, attendance, homework }) => (
+            {childCards.map(({ child, access, schedule, attendance, homework, billing }) => (
               <section
                 key={child.profileId}
                 className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04]"
@@ -301,6 +316,51 @@ export default async function ParentDashboardPage({
                           )}
                         </div>
                       ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="border-t border-white/10 p-6">
+                  <div className="mb-4 flex items-center justify-between gap-4">
+                    <h2 className="text-lg font-black">
+                      {rtl ? "الأداءات الشهرية" : "Paiements mensuels"}
+                    </h2>
+                    <span className="text-xs text-white/35">
+                      {billing.length} {rtl ? "فاتورة" : "factures"}
+                    </span>
+                  </div>
+
+                  {billing.length === 0 ? (
+                    <p className="rounded-2xl border border-dashed border-white/10 p-5 text-sm text-white/35">
+                      {rtl ? "مازال ما تسجل حتى أداء." : "Aucun paiement enregistré."}
+                    </p>
+                  ) : (
+                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                      {billing.map((item) => {
+                        const remaining = item.expectedAmountCentimes - item.paidAmountCentimes;
+                        const label =
+                          item.status === "PAID"
+                            ? rtl ? "خالص" : "Payé"
+                            : item.status === "PARTIAL"
+                              ? rtl ? "جزئي" : "Partiel"
+                              : rtl ? "غير خالص" : "Impayé";
+
+                        return (
+                          <div key={item.id} className="rounded-2xl border border-white/10 bg-black/10 p-4">
+                            <div className="flex items-center justify-between gap-3">
+                              <p className="font-black">{item.subjectName}</p>
+                              <span className="text-xs font-black text-accent">{label}</span>
+                            </div>
+                            <p className="mt-2 text-xs text-white/45">{item.billingMonth.slice(0, 7)}</p>
+                            <p className="mt-2 text-sm text-white/65">
+                              {(item.paidAmountCentimes / 100).toFixed(0)} / {(item.expectedAmountCentimes / 100).toFixed(0)} DH
+                            </p>
+                            <p className="mt-1 text-xs text-white/35">
+                              {rtl ? "الباقي" : "Reste"}: {(remaining / 100).toFixed(0)} DH
+                            </p>
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
