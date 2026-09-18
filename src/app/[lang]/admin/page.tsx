@@ -84,6 +84,12 @@ export default async function AdminHomePage({
                 {rtl ? "الأساتذة والأولياء" : "Profs & parents"}
               </Link>
               <Link
+                href={`/${lang}/admin/payments`}
+                className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-bold text-white/80 transition hover:bg-white/5"
+              >
+                {rtl ? "الأداءات" : "Paiements"}
+              </Link>
+              <Link
                 href={`/${lang}/admin/security`}
                 className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-bold text-white/80 transition hover:bg-white/5"
               >
