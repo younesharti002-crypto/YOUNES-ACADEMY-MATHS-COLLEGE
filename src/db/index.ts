@@ -2,6 +2,7 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import * as baseSchema from "./schema";
 import * as academyManagementSchema from "./academy-management-schema";
+import * as academyOperationsSchema from "./academy-operations-schema";
 import { normalizePostgresConnectionString } from "@/lib/db/connection-string";
 
 const globalForDb = globalThis as typeof globalThis & {
@@ -22,5 +23,6 @@ export const db = drizzle(pool, {
   schema: {
     ...baseSchema,
     ...academyManagementSchema,
+    ...academyOperationsSchema,
   },
 });
