@@ -1,11 +1,14 @@
-import { and, asc, desc, eq, inArray } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, isNull } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import {
   academyBillingItems,
   academyPaymentTransactions,
 } from "@/db/academy-finance-schema";
-import { academyWeeklySessions } from "@/db/academy-management-schema";
+import {
+  academySubjectLoads,
+  academyWeeklySessions,
+} from "@/db/academy-management-schema";
 import {
   groups,
   levels,
@@ -50,6 +53,8 @@ export async function GET(request: NextRequest) {
       profileId: studentProfiles.id,
       fullName: users.fullName,
       studentCode: studentProfiles.studentCode,
+      levelId: studentProfiles.levelId,
+      streamId: studentProfiles.streamId,
       levelName: levels.name,
       groupId: studentProfiles.primaryGroupId,
       groupName: groups.name,
@@ -61,22 +66,26 @@ export async function GET(request: NextRequest) {
     .where(eq(users.status, "ACTIVE"))
     .orderBy(asc(users.fullName));
 
-  const groupIds = [
-    ...new Set(students.map((row) => row.groupId).filter((value): value is string => Boolean(value))),
-  ];
+  const levelIds = [...new Set(students.map((row) => row.levelId))];
 
   const scopes =
-    groupIds.length === 0
+    levelIds.length === 0
       ? []
       : await db
-          .selectDistinct({
-            groupId: academyWeeklySessions.groupId,
-            subjectId: academyWeeklySessions.subjectId,
+          .select({
+            levelId: academySubjectLoads.levelId,
+            streamId: academySubjectLoads.streamId,
+            subjectId: academySubjectLoads.subjectId,
             subjectName: subjects.name,
           })
-          .from(academyWeeklySessions)
-          .innerJoin(subjects, eq(academyWeeklySessions.subjectId, subjects.id))
-          .where(inArray(academyWeeklySessions.groupId, groupIds))
+          .from(academySubjectLoads)
+          .innerJoin(subjects, eq(academySubjectLoads.subjectId, subjects.id))
+          .where(
+            and(
+              inArray(academySubjectLoads.levelId, levelIds),
+              eq(academySubjectLoads.active, true),
+            ),
+          )
           .orderBy(asc(subjects.name));
 
   const billing = await db
@@ -183,6 +192,8 @@ export async function POST(request: NextRequest) {
   const [student] = await db
     .select({
       profileId: studentProfiles.id,
+      levelId: studentProfiles.levelId,
+      streamId: studentProfiles.streamId,
       levelName: levels.name,
       groupId: studentProfiles.primaryGroupId,
     })
@@ -191,17 +202,23 @@ export async function POST(request: NextRequest) {
     .where(eq(studentProfiles.id, studentProfileId))
     .limit(1);
 
-  if (!student?.groupId) {
-    return errorResponse(404, "STUDENT_GROUP_NOT_FOUND", "Student group not found.");
+  if (!student) {
+    return errorResponse(404, "STUDENT_NOT_FOUND", "Student not found.");
   }
 
+  const streamCondition = student.streamId
+    ? eq(academySubjectLoads.streamId, student.streamId)
+    : isNull(academySubjectLoads.streamId);
+
   const [scope] = await db
-    .select({ id: academyWeeklySessions.id })
-    .from(academyWeeklySessions)
+    .select({ id: academySubjectLoads.id })
+    .from(academySubjectLoads)
     .where(
       and(
-        eq(academyWeeklySessions.groupId, student.groupId),
-        eq(academyWeeklySessions.subjectId, subjectId),
+        eq(academySubjectLoads.levelId, student.levelId),
+        streamCondition,
+        eq(academySubjectLoads.subjectId, subjectId),
+        eq(academySubjectLoads.active, true),
       ),
     )
     .limit(1);
@@ -209,8 +226,8 @@ export async function POST(request: NextRequest) {
   if (!scope) {
     return errorResponse(
       409,
-      "SUBJECT_NOT_IN_GROUP",
-      "This subject is not part of the student's current group.",
+      "SUBJECT_NOT_IN_PROGRAM",
+      "This subject is not part of the student's current level or stream.",
     );
   }
 
