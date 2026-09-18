@@ -16,7 +16,10 @@ export async function GET(
 ) {
   const authorization = await authorizeRequest(request, ["ADMIN", "TEACHER", "STUDENT"]);
   if (!authorization.ok) {
-    return NextResponse.json({ error: { code: authorization.reason } }, { status: 401 });
+    return NextResponse.json(
+      { error: { code: authorization.reason } },
+      { status: authorization.reason === "UNAUTHENTICATED" ? 401 : 403 },
+    );
   }
 
   const { id } = await params;
@@ -67,10 +70,12 @@ export async function GET(
   }
 
   const bytes = Buffer.from(row.dataBase64, "base64");
-  return new NextResponse(bytes, {
+  const body = Uint8Array.from(bytes).buffer;
+  const safeName = row.fileName.replace(/[\r\n"]/g, "");
+  return new NextResponse(body, {
     headers: {
       "Content-Type": row.mimeType,
-      "Content-Disposition": `inline; filename="${row.fileName.replace(/"/g, "")}"`,
+      "Content-Disposition": `inline; filename="${safeName}"`,
       "Cache-Control": "private, no-store",
     },
   });
