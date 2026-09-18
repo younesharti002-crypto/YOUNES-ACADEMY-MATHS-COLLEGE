@@ -3,7 +3,12 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { db } from "@/db";
-import { academyAttendance } from "@/db/academy-operations-schema";
+import {
+  academyAttendance,
+  academyHomework,
+  academyHomeworkCorrections,
+  academyHomeworkSubmissions,
+} from "@/db/academy-operations-schema";
 import { academyRooms, academyWeeklySessions } from "@/db/academy-management-schema";
 import {
   groups,
@@ -82,7 +87,7 @@ export default async function ParentDashboardPage({
 
   const childCards = await Promise.all(
     children.map(async (child) => {
-      const [access, schedule, attendance] = await Promise.all([
+      const [access, schedule, attendance, homework] = await Promise.all([
         getStudentSubscriptionAccess(child.userId).catch(() => ({ state: "NONE" as const })),
         child.groupId
           ? db
@@ -124,6 +129,35 @@ export default async function ParentDashboardPage({
             desc(academyAttendance.markedAt),
           )
           .limit(12),
+        child.groupId
+          ? db
+              .select({
+                id: academyHomework.id,
+                title: academyHomework.title,
+                subjectName: subjects.name,
+                dueAt: academyHomework.dueAt,
+                submissionStatus: academyHomeworkSubmissions.status,
+                score: academyHomeworkCorrections.score,
+                scoreMax: academyHomeworkCorrections.scoreMax,
+                comment: academyHomeworkCorrections.comment,
+              })
+              .from(academyHomework)
+              .innerJoin(subjects, eq(academyHomework.subjectId, subjects.id))
+              .leftJoin(
+                academyHomeworkSubmissions,
+                and(
+                  eq(academyHomeworkSubmissions.homeworkId, academyHomework.id),
+                  eq(academyHomeworkSubmissions.studentProfileId, child.profileId),
+                ),
+              )
+              .leftJoin(
+                academyHomeworkCorrections,
+                eq(academyHomeworkCorrections.submissionId, academyHomeworkSubmissions.id),
+              )
+              .where(eq(academyHomework.groupId, child.groupId))
+              .orderBy(desc(academyHomework.createdAt))
+              .limit(12)
+          : Promise.resolve([]),
       ]);
 
       const sortedSchedule = [...schedule].sort((a, b) => {
@@ -133,7 +167,7 @@ export default async function ParentDashboardPage({
         return a.startsAt.localeCompare(b.startsAt);
       });
 
-      return { child, access, schedule: sortedSchedule, attendance };
+      return { child, access, schedule: sortedSchedule, attendance, homework };
     }),
   );
 
@@ -172,7 +206,7 @@ export default async function ParentDashboardPage({
           </section>
         ) : (
           <div className="mt-6 space-y-6">
-            {childCards.map(({ child, access, schedule, attendance }) => (
+            {childCards.map(({ child, access, schedule, attendance, homework }) => (
               <section
                 key={child.profileId}
                 className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04]"
@@ -264,6 +298,43 @@ export default async function ParentDashboardPage({
                             <p className="mt-2 text-xs leading-6 text-white/55">
                               {item.note}
                             </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="border-t border-white/10 p-6">
+                  <div className="mb-4 flex items-center justify-between gap-4">
+                    <h2 className="text-lg font-black">
+                      {rtl ? "الواجبات والنتائج" : "Devoirs & résultats"}
+                    </h2>
+                    <span className="text-xs text-white/35">
+                      {homework.length} {rtl ? "واجب" : "devoirs"}
+                    </span>
+                  </div>
+
+                  {homework.length === 0 ? (
+                    <p className="rounded-2xl border border-dashed border-white/10 p-5 text-sm text-white/35">
+                      {rtl ? "مازال ما كاين حتى واجب." : "Aucun devoir pour le moment."}
+                    </p>
+                  ) : (
+                    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                      {homework.map((item) => (
+                        <div key={item.id} className="rounded-2xl border border-white/10 bg-black/10 p-4">
+                          <p className="text-xs font-black text-accent">{item.subjectName}</p>
+                          <p className="mt-1 font-black">{item.title}</p>
+                          <p className="mt-2 text-xs text-white/45">
+                            {item.submissionStatus ?? (rtl ? "لم يرسل بعد" : "À faire")}
+                          </p>
+                          {item.score !== null && item.score !== undefined && (
+                            <p className="mt-2 text-sm font-black text-emerald-300">
+                              {item.score}/{item.scoreMax ?? "—"}
+                            </p>
+                          )}
+                          {item.comment && (
+                            <p className="mt-2 text-xs leading-6 text-white/55">{item.comment}</p>
                           )}
                         </div>
                       ))}
