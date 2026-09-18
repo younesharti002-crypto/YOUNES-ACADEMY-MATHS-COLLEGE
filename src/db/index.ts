@@ -1,6 +1,7 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as schema from "./schema";
+import * as baseSchema from "./schema";
+import * as academyManagementSchema from "./academy-management-schema";
 import { normalizePostgresConnectionString } from "@/lib/db/connection-string";
 
 const globalForDb = globalThis as typeof globalThis & {
@@ -17,4 +18,9 @@ if (process.env.NODE_ENV !== "production") {
   globalForDb.__younesAcademyPool = pool;
 }
 
-export const db = drizzle(pool, { schema });
+export const db = drizzle(pool, {
+  schema: {
+    ...baseSchema,
+    ...academyManagementSchema,
+  },
+});
