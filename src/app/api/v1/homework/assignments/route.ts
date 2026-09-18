@@ -9,7 +9,7 @@ import {
 import { academyWeeklySessions } from "@/db/academy-management-schema";
 import { groups, studentProfiles, subjects } from "@/db/schema";
 import { authorizeRequest } from "@/lib/auth/authorization";
-import { teacherCanAccessGroup } from "@/lib/homework/access";
+import { teacherCanAccessGroupSubject } from "@/lib/homework/access";
 
 const UUID_PATTERN =
   /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -308,14 +308,37 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (
-    authorization.session.user.role === "TEACHER" &&
-    !(await teacherCanAccessGroup(authorization.session.user.id, groupId))
-  ) {
+  const scopeConditions = [
+    eq(academyWeeklySessions.groupId, groupId),
+    eq(academyWeeklySessions.subjectId, subjectId),
+  ] as const;
+
+  const [scheduledScope] =
+    authorization.session.user.role === "TEACHER"
+      ? await db
+          .select({ id: academyWeeklySessions.id })
+          .from(academyWeeklySessions)
+          .where(
+            and(
+              ...scopeConditions,
+              eq(
+                academyWeeklySessions.teacherUserId,
+                authorization.session.user.id,
+              ),
+            ),
+          )
+          .limit(1)
+      : await db
+          .select({ id: academyWeeklySessions.id })
+          .from(academyWeeklySessions)
+          .where(and(...scopeConditions))
+          .limit(1);
+
+  if (!scheduledScope) {
     return errorResponse(
       403,
-      "GROUP_FORBIDDEN",
-      "This group is not assigned to the teacher.",
+      "ACADEMIC_SCOPE_FORBIDDEN",
+      "This group and subject pair is not available to this staff account.",
     );
   }
 
