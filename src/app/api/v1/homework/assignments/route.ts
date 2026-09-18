@@ -1,4 +1,4 @@
-import { asc, desc, eq, inArray, or } from "drizzle-orm";
+import { and, asc, desc, eq, inArray, or } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/db";
 import {
@@ -83,39 +83,18 @@ export async function GET(request: NextRequest) {
         createdAt: academyAssignments.createdAt,
         groupName: groups.name,
         subjectName: subjects.name,
-        submissionId: academySubmissions.id,
-        submissionStatus: academySubmissions.status,
-        submittedAt: academySubmissions.submittedAt,
-        studentComment: academySubmissions.studentComment,
-        score: academyCorrections.score,
-        scoreMax: academyCorrections.scoreMax,
-        correctionComment: academyCorrections.comment,
-        correctedAt: academyCorrections.correctedAt,
       })
       .from(academyAssignments)
       .innerJoin(groups, eq(academyAssignments.groupId, groups.id))
       .innerJoin(subjects, eq(academyAssignments.subjectId, subjects.id))
-      .leftJoin(
-        academySubmissions,
-        eq(academySubmissions.assignmentId, academyAssignments.id),
-      )
-      .leftJoin(
-        academyCorrections,
-        eq(academyCorrections.submissionId, academySubmissions.id),
-      )
       .where(
-        eq(academyAssignments.groupId, profile.groupId),
+        and(
+          eq(academyAssignments.groupId, profile.groupId),
+          eq(academyAssignments.published, true),
+        ),
       )
       .orderBy(desc(academyAssignments.createdAt));
 
-    const own = assignments.filter(
-      (row) =>
-        !row.submissionId ||
-        true,
-    );
-
-    // The left join above can contain another student's submission. Resolve the
-    // current student's submission precisely below and merge by assignment id.
     const studentSubmissions = await db
       .select({
         id: academySubmissions.id,
@@ -139,35 +118,20 @@ export async function GET(request: NextRequest) {
       studentSubmissions.map((row) => [row.assignmentId, row]),
     );
 
-    const cleanAssignments = Array.from(
-      new Map(
-        own
-          .filter((row) => row.id)
-          .map((row) => {
-            const submission = submissionByAssignment.get(row.id);
-            return [
-              row.id,
-              {
-                id: row.id,
-                title: row.title,
-                instructions: row.instructions,
-                dueAt: row.dueAt,
-                createdAt: row.createdAt,
-                groupName: row.groupName,
-                subjectName: row.subjectName,
-                submissionId: submission?.id ?? null,
-                submissionStatus: submission?.status ?? null,
-                submittedAt: submission?.submittedAt ?? null,
-                studentComment: submission?.studentComment ?? null,
-                score: submission?.score ?? null,
-                scoreMax: submission?.scoreMax ?? null,
-                correctionComment: submission?.correctionComment ?? null,
-                correctedAt: submission?.correctedAt ?? null,
-              },
-            ];
-          }),
-      ).values(),
-    );
+    const cleanAssignments = assignments.map((row) => {
+      const submission = submissionByAssignment.get(row.id);
+      return {
+        ...row,
+        submissionId: submission?.id ?? null,
+        submissionStatus: submission?.status ?? null,
+        submittedAt: submission?.submittedAt ?? null,
+        studentComment: submission?.studentComment ?? null,
+        score: submission?.score ?? null,
+        scoreMax: submission?.scoreMax ?? null,
+        correctionComment: submission?.correctionComment ?? null,
+        correctedAt: submission?.correctedAt ?? null,
+      };
+    });
 
     return NextResponse.json(
       { data: { assignments: cleanAssignments } },
