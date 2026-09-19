@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { locales, localeLabel, type Locale } from "@/i18n/config";
+import { SocialIcon } from "@/components/ui/SocialIcon";
 import { academyLinks, academySocialLinks } from "@/lib/academy-links";
 
 export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
@@ -60,10 +61,11 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
                 href={link.href}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="grid size-8 place-items-center rounded-lg border border-white/10 bg-white/[0.025] text-[10px] font-black text-chalk-dim transition hover:border-accent/50 hover:text-accent"
+                className="grid size-9 place-items-center rounded-xl border border-white/10 bg-white/[0.025] text-chalk-dim transition hover:border-accent/50 hover:text-accent"
                 aria-label={link.label}
+                title={link.label}
               >
-                {link.shortLabel}
+                <SocialIcon name={link.key} className="size-4" />
               </a>
             ))}
           </div>
@@ -86,8 +88,9 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
             href={academyLinks.whatsapp}
             target="_blank"
             rel="noreferrer noopener"
-            className="hidden rounded-lg border border-accent/55 px-4 py-2 text-xs font-bold text-accent transition hover:bg-accent hover:text-board-900 md:inline-flex"
+            className="hidden items-center gap-2 rounded-lg border border-accent/55 px-4 py-2 text-xs font-bold text-accent transition hover:bg-accent hover:text-board-900 md:inline-flex"
           >
+            <SocialIcon name="whatsapp" className="size-4" />
             WhatsApp
           </a>
 
@@ -100,7 +103,7 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
         </div>
       </div>
 
-      <nav className="flex gap-5 overflow-x-auto border-t border-white/[0.06] px-5 py-2 text-xs font-semibold text-chalk-dim lg:hidden">
+      <nav className="flex gap-3 overflow-x-auto border-t border-white/[0.06] px-5 py-2 text-xs font-semibold text-chalk-dim lg:hidden">
         {navItems.map((item) =>
           item.href.startsWith("/") ? (
             <Link key={item.href} href={item.href} className="whitespace-nowrap text-accent">
@@ -113,8 +116,8 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
           ),
         )}
         {academySocialLinks.map((link) => (
-          <a key={link.key} href={link.href} target="_blank" rel="noreferrer noopener" className="whitespace-nowrap text-accent">
-            {link.label}
+          <a key={link.key} href={link.href} target="_blank" rel="noreferrer noopener" aria-label={link.label} className="grid size-8 shrink-0 place-items-center rounded-lg border border-white/10 text-accent">
+            <SocialIcon name={link.key} className="size-4" />
           </a>
         ))}
       </nav>
