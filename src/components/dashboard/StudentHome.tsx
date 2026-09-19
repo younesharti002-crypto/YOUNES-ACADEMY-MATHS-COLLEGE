@@ -97,7 +97,7 @@ export function StudentHome({
               YA
             </span>
             <span>
-              <span className="block text-sm font-extrabold tracking-[0.06em]">YOUNES</span>
+              <span className="block text-sm font-extrabold tracking-[0.06em]">THE SECRET</span>
               <span className="block text-[9px] font-semibold uppercase tracking-[0.28em] text-accent">Academy</span>
             </span>
           </Link>
@@ -134,7 +134,7 @@ export function StudentHome({
           <header className="sticky top-0 z-30 border-b border-black/[0.06] bg-[#f8f7f4]/90 px-4 py-3 backdrop-blur sm:px-6 lg:px-8">
             <div className="flex items-center gap-3">
               <Link href={`/${locale}`} className="flex items-center gap-2 lg:hidden">
-                <span className="grid size-9 place-items-center rounded-xl bg-board-900 text-xs font-black text-accent">YA</span>
+                <span className="grid size-9 place-items-center rounded-xl bg-board-900 text-xs font-black text-accent">TSA</span>
                 <span className="text-xs font-black text-board-900">YOUNES</span>
               </Link>
 
@@ -295,7 +295,7 @@ export function StudentHome({
                     <p className="text-xs font-bold text-accent">{ar ? "أدواتك" : "Vos outils"}</p>
                     <h2 className="mt-1 text-xl font-black">{ar ? "كل ما تحتاجه هنا" : "Tout au même endroit"}</h2>
                   </div>
-                  <span className="text-2xl text-accent">YA</span>
+                  <span className="text-2xl text-accent">TSA</span>
                 </div>
 
                 <div className="mt-5 grid gap-2.5">
