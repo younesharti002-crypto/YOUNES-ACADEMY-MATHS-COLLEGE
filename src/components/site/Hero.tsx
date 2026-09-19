@@ -4,16 +4,23 @@ import { academyLinks } from "@/lib/academy-links";
 
 export function Hero({ dict }: { dict: Dictionary }) {
   return (
-    <section className="graph-paper relative overflow-hidden border-b border-accent/15 bg-[#050b13]">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_25%_35%,rgba(18,214,208,0.10),transparent_28rem)]" />
+    <section
+      className="graph-paper relative overflow-hidden border-b border-accent/15 bg-[#050b13] bg-cover bg-center"
+      style={{
+        backgroundImage:
+          "linear-gradient(90deg, rgba(5,11,19,0.94), rgba(5,11,19,0.78), rgba(5,11,19,0.88)), url('/brand/cosmic-hero.webp')",
+      }}
+    >
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[#050b13]/28" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_25%_35%,rgba(209,166,54,0.14),transparent_30rem),radial-gradient(circle_at_78%_20%,rgba(18,214,208,0.12),transparent_26rem)]" />
       <div className="relative mx-auto grid w-full max-w-[90rem] gap-10 px-5 py-14 sm:px-8 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:px-10 lg:py-20">
         <div>
-          <div className="inline-flex items-center gap-2 rounded-full border border-accent/35 bg-accent/[0.07] px-4 py-2 text-xs font-bold text-accent-soft">
+          <div className="inline-flex items-center gap-2 rounded-full border border-accent/35 bg-accent/[0.09] px-4 py-2 text-xs font-bold text-accent-soft backdrop-blur-sm">
             <span className="size-1.5 rounded-full bg-accent" />
             {dict.hero.badge}
           </div>
 
-          <h1 className="mt-7 max-w-4xl text-[2.6rem] font-black leading-[1.08] tracking-[-0.02em] text-chalk sm:text-5xl md:text-[4.2rem]">
+          <h1 className="mt-7 max-w-4xl text-[2.6rem] font-black leading-[1.08] tracking-[-0.02em] text-chalk drop-shadow-[0_12px_40px_rgba(0,0,0,0.55)] sm:text-5xl md:text-[4.2rem]">
             {dict.hero.title}
           </h1>
 
@@ -27,12 +34,12 @@ export function Hero({ dict }: { dict: Dictionary }) {
             <a href={academyLinks.whatsapp} target="_blank" rel="noreferrer noopener" className="brand-button inline-flex items-center gap-3 rounded-lg px-6 py-3.5 text-sm font-black">
               {dict.hero.primaryCta}<span aria-hidden="true">←</span>
             </a>
-            <a href="#programmes" className="inline-flex items-center gap-3 rounded-lg border border-accent/45 bg-white/[0.02] px-6 py-3.5 text-sm font-bold text-chalk transition hover:border-accent hover:bg-accent/[0.07]">
+            <a href="#programmes" className="inline-flex items-center gap-3 rounded-lg border border-accent/45 bg-white/[0.04] px-6 py-3.5 text-sm font-bold text-chalk transition hover:border-accent hover:bg-accent/[0.09]">
               {dict.hero.secondaryCta}
             </a>
           </div>
 
-          <dl className="premium-panel mt-10 grid max-w-3xl grid-cols-1 divide-y divide-white/[0.07] overflow-hidden rounded-2xl sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          <dl className="premium-panel mt-10 grid max-w-3xl grid-cols-1 divide-y divide-white/[0.07] overflow-hidden rounded-2xl bg-[#050b13]/70 backdrop-blur-md sm:grid-cols-3 sm:divide-x sm:divide-y-0">
             {dict.hero.stats.map((stat) => (
               <div key={stat.label} className="px-5 py-5 text-center">
                 <dd className="brand-text text-2xl font-black">{stat.value}</dd>
@@ -43,7 +50,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
         </div>
 
         <div className="grid gap-4">
-          <div className="overflow-hidden rounded-[1.8rem] border border-accent/25 bg-[#06111f] shadow-[0_24px_70px_rgba(0,0,0,0.35)]">
+          <div className="overflow-hidden rounded-[1.8rem] border border-accent/25 bg-[#06111f]/86 shadow-[0_24px_70px_rgba(0,0,0,0.35)] backdrop-blur-md">
             <Image
               src="/brand/secret-academy-logo.svg"
               alt="Logo THE SECRET ACADEMY"
@@ -53,7 +60,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
               className="mx-auto aspect-square w-full max-w-[34rem] object-cover"
             />
           </div>
-          <div className="rounded-[1.7rem] border border-emerald-300/20 bg-emerald-300/[0.06] p-5">
+          <div className="rounded-[1.7rem] border border-emerald-300/20 bg-emerald-300/[0.08] p-5 backdrop-blur-md">
             <p className="text-xs font-black text-emerald-300">2BAC PRIORITÉ</p>
             <p className="mt-2 text-sm leading-7 text-emerald-50/70">
               SVT · PC · ECO — planning, devoirs, correction et suivi parent.
@@ -62,7 +69,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
         </div>
 
         <div className="lg:col-span-2">
-          <div className="overflow-hidden rounded-[2rem] border border-accent/30 bg-[#06111f] shadow-[0_30px_90px_rgba(0,0,0,0.38)]">
+          <div className="overflow-hidden rounded-[2rem] border border-accent/30 bg-[#06111f]/88 shadow-[0_30px_90px_rgba(0,0,0,0.38)] backdrop-blur-md">
             <Image
               src="/brand/secret-academy-bac-banner.svg"
               alt="THE SECRET ACADEMY — Spécial BAC"
@@ -79,7 +86,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
               { title: "Collège", value: "200 DH", text: "1AC · 2AC · 3AC" },
               { title: "Lycée", value: "200 DH", text: "TC · 1BAC · 2BAC" },
             ].map((item, index) => (
-              <article key={item.title} className={`rounded-[1.7rem] border p-5 ${index === 2 ? "border-accent/30 bg-accent/[0.08]" : "border-white/10 bg-white/[0.04]"}`}>
+              <article key={item.title} className={`rounded-[1.7rem] border p-5 backdrop-blur-md ${index === 2 ? "border-accent/30 bg-accent/[0.10]" : "border-white/10 bg-white/[0.055]"}`}>
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="text-xs font-black uppercase tracking-[0.18em] text-accent">{item.title}</p>
