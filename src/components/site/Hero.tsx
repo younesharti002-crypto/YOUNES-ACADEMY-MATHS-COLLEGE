@@ -1,7 +1,6 @@
 import Image from "next/image";
 import type { Dictionary } from "@/i18n/dictionaries";
-
-const WHATSAPP_URL = "https://wa.me/message/7QKYIB7HB6BSD1";
+import { academyLinks } from "@/lib/academy-links";
 
 export function Hero({ dict }: { dict: Dictionary }) {
   return (
@@ -25,7 +24,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer noopener" className="brand-button inline-flex items-center gap-3 rounded-lg px-6 py-3.5 text-sm font-black">
+            <a href={academyLinks.whatsapp} target="_blank" rel="noreferrer noopener" className="brand-button inline-flex items-center gap-3 rounded-lg px-6 py-3.5 text-sm font-black">
               {dict.hero.primaryCta}<span aria-hidden="true">←</span>
             </a>
             <a href="#programmes" className="inline-flex items-center gap-3 rounded-lg border border-accent/45 bg-white/[0.02] px-6 py-3.5 text-sm font-bold text-chalk transition hover:border-accent hover:bg-accent/[0.07]">
