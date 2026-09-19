@@ -44,7 +44,7 @@ export function Hero({ dict }: { dict: Dictionary }) {
         <div className="grid gap-4">
           <div className="overflow-hidden rounded-[1.8rem] border border-accent/25 bg-[#06111f] shadow-[0_24px_70px_rgba(0,0,0,0.35)]">
             <Image
-              src="/images/secret-academy-logo.webp"
+              src="/brand/secret-academy-logo.svg"
               alt="Logo THE SECRET ACADEMY"
               width={700}
               height={700}
@@ -63,10 +63,10 @@ export function Hero({ dict }: { dict: Dictionary }) {
         <div className="lg:col-span-2">
           <div className="overflow-hidden rounded-[2rem] border border-accent/30 bg-[#06111f] shadow-[0_30px_90px_rgba(0,0,0,0.38)]">
             <Image
-              src="/images/secret-academy-bac-banner.webp"
+              src="/brand/secret-academy-bac-banner.svg"
               alt="THE SECRET ACADEMY — Spécial BAC"
-              width={1000}
-              height={372}
+              width={2048}
+              height={762}
               priority
               className="h-auto w-full object-cover"
             />
