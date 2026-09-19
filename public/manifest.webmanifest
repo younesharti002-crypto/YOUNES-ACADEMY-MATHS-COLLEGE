@@ -12,15 +12,9 @@
   "dir": "rtl",
   "icons": [
     {
-      "src": "/icons/icon-192-v2.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icons/icon-512-v2.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "/brand/secret-academy-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ],
@@ -31,33 +25,33 @@
       "url": "/ar/login",
       "icons": [
         {
-          "src": "/icons/icon-192-v2.png",
-          "sizes": "192x192",
-          "type": "image/png"
+          "src": "/brand/secret-academy-logo.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     },
     {
-      "name": "الدروس",
-      "short_name": "Cours",
-      "url": "/ar/courses",
+      "name": "الواجبات",
+      "short_name": "Devoirs",
+      "url": "/ar/homework",
       "icons": [
         {
-          "src": "/icons/icon-192-v2.png",
-          "sizes": "192x192",
-          "type": "image/png"
+          "src": "/brand/secret-academy-logo.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     },
     {
-      "name": "البث المباشر",
-      "short_name": "Live",
-      "url": "/ar/live",
+      "name": "الأداءات",
+      "short_name": "Paiements",
+      "url": "/ar/admin/payments",
       "icons": [
         {
-          "src": "/icons/icon-192-v2.png",
-          "sizes": "192x192",
-          "type": "image/png"
+          "src": "/brand/secret-academy-logo.svg",
+          "sizes": "any",
+          "type": "image/svg+xml"
         }
       ]
     }
