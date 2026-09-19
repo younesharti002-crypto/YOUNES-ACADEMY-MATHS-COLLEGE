@@ -3,7 +3,7 @@ import type { Dictionary } from "./ar";
 export const fr: Dictionary = {
   meta: {
     title: "THE SECRET ACADEMY | سرك للتفوق",
-    description: "Académie hybride à Oulfa - Casablanca : cours présentiels, plateforme digitale, devoirs corrigés et suivi parent du primaire au 2BAC.",
+    description: "Espace éducatif à Oulfa - Casablanca : cours de soutien en présentiel, plateforme de suivi, devoirs corrigés et suivi parent du primaire au 2BAC.",
   },
   common: {
     brand: "THE SECRET",
@@ -21,28 +21,28 @@ export const fr: Dictionary = {
     cta: "Connexion",
   },
   hero: {
-    badge: "Académie hybride à Oulfa • Présentiel + plateforme digitale",
+    badge: "Centre de soutien à Oulfa + plateforme digitale de suivi",
     name: "THE SECRET ACADEMY | سرك للتفوق",
-    title: "De la salle de cours à la maison, un suivi continu vers la réussite",
-    description: "Cours présentiels structurés, devoirs et résultats en ligne, correction des réponses et suivi parent de l’assiduité, de la progression et des paiements.",
-    primaryCta: "Découvrir les niveaux",
-    secondaryCta: "Voir le suivi parent",
+    title: "Un espace éducatif à Oulfa qui accompagne votre enfant jusqu’à la maison",
+    description: "Le professeur, les cours, les devoirs, les notes et les corrections restent proches de vous sur téléphone. Des cours présentiels organisés du primaire au bac, avec une plateforme pour le parent et une Academy structurée pour l’élève toute la journée : cours, résumés, tests, devoirs, conseils et orientation.",
+    primaryCta: "S'inscrire sur WhatsApp",
+    secondaryCta: "Voir le programme et les prix",
     imageAlt: "THE SECRET ACADEMY",
     imageCaption: "Oulfa · Casablanca",
     stats: [
-      { value: "Primaire · Collège · Lycée", label: "Du 4AP au 2BAC" },
-      { value: "4 Salles", label: "Organisation présentielle" },
-      { value: "2BAC", label: "Priorité du programme" },
+      { value: "Primaire · Collège · Lycée", label: "Du primaire au bac" },
+      { value: "Prix accessibles", label: "Selon matière et niveau" },
+      { value: "Séances gratuites", label: "Chaque semaine pour tester et orienter" },
     ],
   },
   positioning: {
     eyebrow: "Méthode Academy",
     title: "Un présentiel solide + un suivi digital continu",
-    lead: "La valeur ne s’arrête pas à la séance. L’élève apprend en classe puis poursuit l’entraînement et le suivi sur la plateforme.",
+    lead: "La valeur ne s’arrête pas à la séance. L’élève apprend dans l’Academy puis poursuit l’entraînement et le suivi sur la plateforme.",
     physics: {
       title: "Cours présentiels",
-      description: "Séances de 1h30 dans des groupes organisés par niveau et matière, avec explication, application et suivi en classe.",
-      items: ["4 salles", "1h30 par séance", "Groupes par niveau", "Planning hebdomadaire"],
+      description: "Séances organisées par niveau et matière, avec explication, application, devoirs, correction et suivi dans un espace éducatif concentré.",
+      items: ["Explication en classe", "Application et exercices", "Groupes par niveau", "Planning hebdomadaire"],
     },
     chemistry: {
       title: "Plateforme & suivi",
@@ -52,11 +52,11 @@ export const fr: Dictionary = {
   },
   about: {
     eyebrow: "À propos de THE SECRET ACADEMY",
-    title: "Un système éducatif complet à Oulfa",
+    title: "Un espace éducatif complet à Oulfa",
     paragraphs: [
       "THE SECRET ACADEMY combine soutien présentiel et plateforme digitale pour prolonger l’apprentissage au-delà de la séance.",
       "L’Academy accompagne les élèves du primaire, du collège et du lycée avec une priorité particulière pour le 2BAC.",
-      "Basée à Oulfa - Casablanca, l’Academy dispose de 4 salles et d’un espace digital permettant aux parents de suivre présence, devoirs, résultats et paiements.",
+      "Basée à Oulfa - Casablanca, l’expérience digitale permet aux parents de suivre présence, devoirs, résultats et paiements.",
     ],
     points: ["Présentiel structuré", "Suivi digital après la séance", "Suivi des cours et des résultats"],
   },
