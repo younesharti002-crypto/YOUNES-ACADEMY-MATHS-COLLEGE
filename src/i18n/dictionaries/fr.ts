@@ -23,7 +23,7 @@ export const fr: Dictionary = {
   hero: {
     badge: "Centre de soutien à Oulfa + plateforme digitale de suivi",
     name: "THE SECRET ACADEMY | سرك للتفوق",
-    title: "Un espace éducatif à Oulfa qui accompagne votre enfant jusqu’à la maison",
+    title: "Votre enfant apprend en classe, vous suivez depuis votre téléphone",
     description: "Le professeur, les cours, les devoirs, les notes et les corrections restent proches de vous sur téléphone. Des cours présentiels organisés du primaire au bac, avec une plateforme pour le parent et une Academy structurée pour l’élève toute la journée : cours, résumés, tests, devoirs, conseils et orientation.",
     primaryCta: "S'inscrire sur WhatsApp",
     secondaryCta: "Voir le programme et les prix",
@@ -36,18 +36,20 @@ export const fr: Dictionary = {
     ],
   },
   positioning: {
-    eyebrow: "Méthode Academy",
-    title: "Un présentiel solide + un suivi digital continu",
-    lead: "La valeur ne s’arrête pas à la séance. L’élève apprend dans l’Academy puis poursuit l’entraînement et le suivi sur la plateforme.",
+    eyebrow: "Le problème vécu par beaucoup de parents",
+    title: "Votre enfant va au soutien… mais est-il vraiment suivi ?",
+    lead: "La vraie question n’est pas seulement l’inscription au soutien. Est-ce qu’il a assisté ? Est-ce qu’il a compris ? A-t-il fait le devoir ? A-t-il été corrigé ? Que doit-il améliorer avant le contrôle ou l’examen ?",
     physics: {
-      title: "Cours présentiels",
-      description: "Séances organisées par niveau et matière, avec explication, application, devoirs, correction et suivi dans un espace éducatif concentré.",
-      items: ["Explication en classe", "Application et exercices", "Groupes par niveau", "Planning hebdomadaire"],
+      label: "PROBLÈME",
+      title: "Le parent reste souvent hors de l’image",
+      description: "Beaucoup de parents paient le soutien sans savoir ce qui s’est passé pendant la séance, si l’élève était concentré, s’il a fait le devoir ou quel est son niveau réel.",
+      items: ["Présence ?", "Compréhension ?", "Devoir fait ?", "Points à améliorer ?"],
     },
     chemistry: {
-      title: "Plateforme & suivi",
-      description: "Cours, devoirs, résultats, présence et paiements réunis dans un même espace pour l’élève et le parent.",
-      items: ["Upload JPG/PDF", "Correction professeur", "Notes & commentaires", "Suivi parent"],
+      label: "NOTRE SOLUTION",
+      title: "Chaque séance, devoir et correction devient visible",
+      description: "THE SECRET ACADEMY relie la classe à la plateforme pour permettre au parent de suivre présence, devoirs, notes, corrections et paiements depuis son téléphone.",
+      items: ["Présence", "Devoirs corrigés", "Notes & commentaires", "Suivi téléphone"],
     },
   },
   about: {
