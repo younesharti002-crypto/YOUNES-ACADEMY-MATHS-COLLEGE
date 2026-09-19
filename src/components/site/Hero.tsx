@@ -1,7 +1,7 @@
 import Image from "next/image";
 import type { Dictionary } from "@/i18n/dictionaries";
 
-const WHATSAPP_URL = "https://wa.me/212644344034?text=Salam%2C%20bghit%20nsjel%20wldi%20f%20THE%20SECRET%20ACADEMY.%20Niveau%3A%20___%20%2F%20Matiere%3A%20___";
+const WHATSAPP_URL = "https://wa.me/message/7QKYIB7HB6BSD1";
 
 export function Hero({ dict }: { dict: Dictionary }) {
   return (
