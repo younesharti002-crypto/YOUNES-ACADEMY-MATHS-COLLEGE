@@ -17,9 +17,9 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
     <header className="sticky top-0 z-40 border-b border-accent/15 bg-[#050b13]/92 shadow-[0_12px_40px_rgba(0,0,0,0.22)] backdrop-blur-xl">
       <div className="mx-auto flex w-full max-w-[90rem] items-center gap-4 px-5 py-3 sm:px-8 lg:px-10">
         <Link href={`/${locale}`} className="group flex items-center gap-3">
-          <span className="brand-text text-3xl font-black leading-none tracking-[-0.08em]">YA</span>
+          <span className="brand-text text-3xl font-black leading-none tracking-[-0.08em]">TSA</span>
           <span className="hidden leading-tight sm:block">
-            <span className="block text-sm font-bold tracking-[0.12em] text-chalk">YOUNES</span>
+            <span className="block text-sm font-bold tracking-[0.12em] text-chalk">THE SECRET</span>
             <span className="block text-[9px] font-bold uppercase tracking-[0.38em] text-accent">ACADEMY</span>
           </span>
         </Link>
