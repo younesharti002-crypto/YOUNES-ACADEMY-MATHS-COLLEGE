@@ -11,7 +11,7 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
       <div className="mx-auto grid w-full max-w-7xl gap-8 md:grid-cols-[1.2fr_.8fr_.8fr] md:items-start">
         <div>
           <Link href={`/${locale}`} className="inline-flex items-center gap-3">
-            <span className="grid size-11 place-items-center rounded-2xl border border-accent/30 bg-accent/10 text-base font-black text-accent">YA</span>
+            <span className="grid size-11 place-items-center rounded-2xl border border-accent/30 bg-accent/10 text-base font-black text-accent">TSA</span>
             <span><span className="block text-sm font-black tracking-wide text-chalk">{dict.common.brand}</span><span className="block text-[9px] font-bold uppercase tracking-[0.28em] text-accent">{dict.common.brandSuffix}</span></span>
           </Link>
           <p className="mt-4 max-w-sm text-xs leading-6 text-chalk-dim">{dict.footer.tagline}</p>
@@ -37,7 +37,7 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
       </div>
 
       <div className="mx-auto mt-9 flex w-full max-w-7xl flex-col gap-2 border-t border-white/[0.07] pt-5 text-[10px] text-chalk-dim sm:flex-row sm:items-center sm:justify-between">
-        <span>© {new Date().getFullYear()} Younes Academy — {dict.footer.rights}</span>
+        <span>© {new Date().getFullYear()} THE SECRET ACADEMY — {dict.footer.rights}</span>
         <span className="font-bold text-accent/80">{releaseLabel}</span>
       </div>
     </footer>
