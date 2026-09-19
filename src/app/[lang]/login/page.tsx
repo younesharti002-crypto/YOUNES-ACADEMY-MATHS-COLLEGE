@@ -29,9 +29,9 @@ export default async function LoginPage({
 
       <div className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between gap-4 pb-5">
         <Link href={`/${lang}`} className="flex items-center gap-3">
-          <span className="brand-text text-3xl font-black tracking-[-0.08em]">YA</span>
+          <span className="brand-text text-3xl font-black tracking-[-0.08em]">TSA</span>
           <span className="leading-tight">
-            <span className="block text-sm font-bold tracking-[0.12em] text-chalk">YOUNES</span>
+            <span className="block text-sm font-bold tracking-[0.12em] text-chalk">THE SECRET</span>
             <span className="block text-[9px] font-bold tracking-[0.34em] text-accent">ACADEMY</span>
           </span>
         </Link>
@@ -48,7 +48,7 @@ export default async function LoginPage({
         <div className="relative hidden min-h-[42rem] overflow-hidden lg:block">
           <Image
             src={PORTRAIT_SRC}
-            alt="Younes Academy"
+            alt="THE SECRET ACADEMY"
             fill
             priority
             unoptimized
@@ -58,7 +58,7 @@ export default async function LoginPage({
           <div className="absolute inset-0 bg-gradient-to-t from-[#050b13] via-[#050b13]/20 to-transparent" />
           <div className="absolute inset-x-0 bottom-0 p-8 xl:p-10">
             <div className="inline-flex rounded-full border border-accent/35 bg-[#050b13]/70 px-3 py-1.5 text-xs font-bold text-accent backdrop-blur-xl">
-              Younes Academy
+              THE SECRET ACADEMY
             </div>
             <h1 className="mt-4 max-w-md text-4xl font-black leading-tight text-chalk">{welcome}</h1>
             <p className="mt-3 max-w-md text-sm leading-7 text-chalk-dim">{lead}</p>
@@ -68,7 +68,7 @@ export default async function LoginPage({
         <div className="flex min-h-[36rem] items-center p-5 sm:p-8 lg:p-10 xl:p-14">
           <div className="w-full">
             <div className="mb-7 lg:hidden">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Younes Academy</p>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">THE SECRET ACADEMY</p>
               <h1 className="mt-2 text-3xl font-black text-chalk">{welcome}</h1>
               <p className="mt-2 text-sm leading-7 text-chalk-dim">{lead}</p>
             </div>
