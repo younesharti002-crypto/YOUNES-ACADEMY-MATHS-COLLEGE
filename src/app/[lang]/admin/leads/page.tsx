@@ -96,8 +96,8 @@ export default async function AdminLeadsPage({ params }: { params: Promise<{ lan
               </h1>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-chalk-dim sm:text-base">
                 {rtl
-                  ? "كل طلب جديد من Landing Page كيدخل هنا. تواصل عبر واتساب، وبدّل الحالة باش تعرف فين وصل كل ولي أمر."
-                  : "Chaque demande envoyée depuis la landing page arrive ici. Contactez le parent par WhatsApp, puis mettez à jour le statut."}
+                  ? "كل طلب جديد من Landing Page كيدخل هنا. تواصل عبر واتساب، وبدّل الحالة أو حوّل الطلب مباشرة لحساب تلميذ."
+                  : "Chaque demande envoyée depuis la landing page arrive ici. Contactez le parent, changez le statut ou transformez la demande en compte élève."}
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -158,6 +158,11 @@ export default async function AdminLeadsPage({ params }: { params: Promise<{ lan
                       <a href={whatsappHref} target="_blank" rel="noreferrer noopener" className="rounded-full bg-accent px-4 py-2 text-xs font-black text-board-900 transition hover:bg-accent-soft">
                         WhatsApp
                       </a>
+                      {lead.status !== "REGISTERED" ? (
+                        <Link href={`/${lang}/admin/leads/${lead.id}/convert`} className="rounded-full border border-emerald-300/30 bg-emerald-300/10 px-4 py-2 text-xs font-black text-emerald-200 transition hover:bg-emerald-300 hover:text-board-900">
+                          {rtl ? "حوّل لتلميذ" : "Convertir"}
+                        </Link>
+                      ) : null}
                       <StatusButton leadId={lead.id} status="CONTACTED" label={rtl ? "تواصلنا" : "Contacté"} />
                       <StatusButton leadId={lead.id} status="REGISTERED" label={rtl ? "مسجل" : "Inscrit"} tone="gold" />
                       <StatusButton leadId={lead.id} status="ARCHIVED" label={rtl ? "أرشيف" : "Archiver"} tone="danger" />
