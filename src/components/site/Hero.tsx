@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { Dictionary } from "@/i18n/dictionaries";
 
 export function Hero({ dict }: { dict: Dictionary }) {
@@ -41,29 +42,55 @@ export function Hero({ dict }: { dict: Dictionary }) {
         </div>
 
         <div className="grid gap-4">
-          {[
-            { title: "Primaire", value: "100 DH", text: "4AP · 5AP · 6AP" },
-            { title: "Collège", value: "200 DH", text: "1AC · 2AC · 3AC" },
-            { title: "Lycée", value: "200 DH", text: "TC · 1BAC · 2BAC" },
-          ].map((item, index) => (
-            <article key={item.title} className={`rounded-[1.7rem] border p-6 ${index === 2 ? "border-accent/30 bg-accent/[0.08]" : "border-white/10 bg-white/[0.04]"}`}>
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-xs font-black uppercase tracking-[0.18em] text-accent">{item.title}</p>
-                  <p className="mt-2 text-xl font-black text-chalk">{item.text}</p>
-                </div>
-                <div className="text-end">
-                  <p className="text-2xl font-black text-accent">{item.value}</p>
-                  <p className="text-[10px] text-chalk-dim">/ matière / mois</p>
-                </div>
-              </div>
-            </article>
-          ))}
+          <div className="overflow-hidden rounded-[1.8rem] border border-accent/25 bg-[#06111f] shadow-[0_24px_70px_rgba(0,0,0,0.35)]">
+            <Image
+              src="/images/secret-academy-logo.webp"
+              alt="Logo THE SECRET ACADEMY"
+              width={700}
+              height={700}
+              priority
+              className="mx-auto aspect-square w-full max-w-[34rem] object-cover"
+            />
+          </div>
           <div className="rounded-[1.7rem] border border-emerald-300/20 bg-emerald-300/[0.06] p-5">
             <p className="text-xs font-black text-emerald-300">2BAC PRIORITÉ</p>
             <p className="mt-2 text-sm leading-7 text-emerald-50/70">
               SVT · PC · ECO — planning, devoirs, correction et suivi parent.
             </p>
+          </div>
+        </div>
+
+        <div className="lg:col-span-2">
+          <div className="overflow-hidden rounded-[2rem] border border-accent/30 bg-[#06111f] shadow-[0_30px_90px_rgba(0,0,0,0.38)]">
+            <Image
+              src="/images/secret-academy-bac-banner.webp"
+              alt="THE SECRET ACADEMY — Spécial BAC"
+              width={1000}
+              height={372}
+              priority
+              className="h-auto w-full object-cover"
+            />
+          </div>
+
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {[
+              { title: "Primaire", value: "100 DH", text: "4AP · 5AP · 6AP" },
+              { title: "Collège", value: "200 DH", text: "1AC · 2AC · 3AC" },
+              { title: "Lycée", value: "200 DH", text: "TC · 1BAC · 2BAC" },
+            ].map((item, index) => (
+              <article key={item.title} className={`rounded-[1.7rem] border p-5 ${index === 2 ? "border-accent/30 bg-accent/[0.08]" : "border-white/10 bg-white/[0.04]"}`}>
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.18em] text-accent">{item.title}</p>
+                    <p className="mt-2 text-base font-black text-chalk">{item.text}</p>
+                  </div>
+                  <div className="text-end">
+                    <p className="text-xl font-black text-accent">{item.value}</p>
+                    <p className="text-[10px] text-chalk-dim">/ matière / mois</p>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
         </div>
       </div>
