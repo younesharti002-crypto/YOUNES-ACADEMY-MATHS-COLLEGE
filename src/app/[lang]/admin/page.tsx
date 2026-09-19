@@ -66,6 +66,12 @@ export default async function AdminHomePage({
                 {rtl ? "الإدارة الأكاديمية" : "Gestion académique"}
               </Link>
               <Link
+                href={`/${lang}/admin/leads`}
+                className="rounded-full border border-emerald-300/35 bg-emerald-300/10 px-5 py-2.5 text-sm font-black text-emerald-200 transition hover:bg-emerald-300/15"
+              >
+                {rtl ? "طلبات التسجيل" : "Demandes"}
+              </Link>
+              <Link
                 href={`/${lang}/homework`}
                 className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-bold text-white/80 transition hover:bg-white/5"
               >
