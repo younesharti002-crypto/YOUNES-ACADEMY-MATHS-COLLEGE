@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LoginForm } from "@/components/auth/LoginForm";
 import { isLocale } from "@/i18n/config";
+import { academyLinks, academySocialLinks } from "@/lib/academy-links";
 
 export default async function LoginPage({
   params,
@@ -21,6 +22,7 @@ export default async function LoginPage({
     ? "دروسك، تسجيلاتك، تمارينك ونتائجك في فضاء واحد."
     : "Vos cours, replays, exercices et résultats dans un seul espace.";
   const welcome = isAr ? "مرحباً بك مجدداً" : "Heureux de vous revoir";
+  const linksTitle = isAr ? "الروابط الرسمية" : "Liens officiels";
 
   return (
     <main className="graph-paper relative min-h-screen overflow-hidden bg-[#050b13] px-4 py-5 sm:px-7 sm:py-8 lg:px-10">
@@ -42,12 +44,22 @@ export default async function LoginPage({
           </span>
         </Link>
 
-        <Link
-          href={`/${lang}`}
-          className="rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold text-chalk-dim transition hover:border-accent/40 hover:text-accent"
-        >
-          {backLabel}
-        </Link>
+        <div className="flex items-center gap-2">
+          <a
+            href={academyLinks.whatsapp}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="hidden rounded-lg border border-accent/35 bg-accent/10 px-3 py-2 text-xs font-black text-accent transition hover:bg-accent hover:text-board-900 sm:inline-flex"
+          >
+            WhatsApp
+          </a>
+          <Link
+            href={`/${lang}`}
+            className="rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold text-chalk-dim transition hover:border-accent/40 hover:text-accent"
+          >
+            {backLabel}
+          </Link>
+        </div>
       </div>
 
       <div className="relative z-10 mx-auto grid w-full max-w-6xl overflow-hidden rounded-[2rem] border border-accent/20 bg-[#07111c]/85 shadow-[0_35px_100px_rgba(0,0,0,0.5)] lg:grid-cols-[0.95fr_1.05fr]">
@@ -67,6 +79,23 @@ export default async function LoginPage({
             </div>
             <h1 className="mt-4 max-w-md text-4xl font-black leading-tight text-chalk">{welcome}</h1>
             <p className="mt-3 max-w-md text-sm leading-7 text-chalk-dim">{lead}</p>
+
+            <div className="mt-6">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-accent/80">{linksTitle}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {academySocialLinks.map((link) => (
+                  <a
+                    key={link.key}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="rounded-full border border-white/10 bg-white/[0.035] px-3 py-1.5 text-xs font-bold text-chalk-dim transition hover:border-accent/45 hover:text-accent"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -78,6 +107,22 @@ export default async function LoginPage({
               <p className="mt-2 text-sm leading-7 text-chalk-dim">{lead}</p>
             </div>
             <LoginForm locale={lang} />
+            <div className="mt-7 rounded-2xl border border-white/10 bg-white/[0.025] p-4">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-accent/80">{linksTitle}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {academySocialLinks.map((link) => (
+                  <a
+                    key={link.key}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="rounded-full border border-white/10 px-3 py-1.5 text-xs font-bold text-chalk-dim transition hover:border-accent/45 hover:text-accent"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
