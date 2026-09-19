@@ -5,6 +5,8 @@ let ensured = false;
 export async function ensureLeadsSchema() {
   if (ensured) return;
 
+  await pool.query(`CREATE EXTENSION IF NOT EXISTS pgcrypto;`);
+
   await pool.query(`
     DO $$
     BEGIN
