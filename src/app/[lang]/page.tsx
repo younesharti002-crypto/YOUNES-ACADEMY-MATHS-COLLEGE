@@ -7,6 +7,7 @@ import { Positioning } from "@/components/site/Positioning";
 import { About } from "@/components/site/About";
 import { Offers } from "@/components/site/Offers";
 import { WhyChoose } from "@/components/site/WhyChoose";
+import { RegistrationLeadSection } from "@/components/site/RegistrationLeadSection";
 import { CallToAction } from "@/components/site/CallToAction";
 import { Footer } from "@/components/site/Footer";
 
@@ -40,6 +41,7 @@ export default async function LandingPage({ params }: { params: Promise<{ lang: 
         <About dict={dict} />
         <Offers dict={dict} />
         <WhyChoose dict={dict} />
+        <RegistrationLeadSection locale={lang} />
         <CallToAction dict={dict} locale={lang} />
       </main>
 
