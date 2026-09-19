@@ -12,7 +12,7 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
         <div>
           <Link href={`/${locale}`} className="inline-flex items-center gap-3">
             <Image
-              src="/images/secret-academy-logo.webp"
+              src="/brand/secret-academy-logo.svg"
               alt="THE SECRET ACADEMY"
               width={72}
               height={72}
