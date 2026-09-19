@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { locales, localeLabel, type Locale } from "@/i18n/config";
@@ -17,7 +18,14 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
     <header className="sticky top-0 z-40 border-b border-accent/15 bg-[#050b13]/92 shadow-[0_12px_40px_rgba(0,0,0,0.22)] backdrop-blur-xl">
       <div className="mx-auto flex w-full max-w-[90rem] items-center gap-4 px-5 py-3 sm:px-8 lg:px-10">
         <Link href={`/${locale}`} className="group flex items-center gap-3">
-          <span className="brand-text text-2xl font-black leading-none tracking-[-0.06em]">TSA</span>
+          <Image
+            src="/images/secret-academy-logo.webp"
+            alt="THE SECRET ACADEMY"
+            width={58}
+            height={58}
+            priority
+            className="size-12 rounded-xl object-cover shadow-[0_0_24px_rgba(209,166,54,0.16)] sm:size-14"
+          />
           <span className="hidden leading-tight sm:block">
             <span className="block text-sm font-bold tracking-[0.09em] text-chalk">THE SECRET</span>
             <span className="block text-[9px] font-bold uppercase tracking-[0.34em] text-accent">ACADEMY</span>
