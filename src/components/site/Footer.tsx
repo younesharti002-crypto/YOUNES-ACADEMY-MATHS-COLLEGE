@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { locales, localeLabel, type Locale } from "@/i18n/config";
@@ -10,7 +11,13 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
       <div className="mx-auto grid w-full max-w-7xl gap-8 md:grid-cols-[1.3fr_.7fr] md:items-start">
         <div>
           <Link href={`/${locale}`} className="inline-flex items-center gap-3">
-            <span className="grid size-11 place-items-center rounded-2xl border border-accent/30 bg-accent/10 text-sm font-black text-accent">TSA</span>
+            <Image
+              src="/images/secret-academy-logo.webp"
+              alt="THE SECRET ACADEMY"
+              width={72}
+              height={72}
+              className="size-14 rounded-2xl object-cover"
+            />
             <span>
               <span className="block text-sm font-black tracking-wide text-chalk">{dict.common.brand}</span>
               <span className="block text-[9px] font-bold uppercase tracking-[0.28em] text-accent">{dict.common.brandSuffix}</span>
