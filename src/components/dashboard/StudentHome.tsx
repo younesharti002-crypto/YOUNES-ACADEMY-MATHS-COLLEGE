@@ -135,7 +135,7 @@ export function StudentHome({
             <div className="flex items-center gap-3">
               <Link href={`/${locale}`} className="flex items-center gap-2 lg:hidden">
                 <span className="grid size-9 place-items-center rounded-xl bg-board-900 text-xs font-black text-accent">TSA</span>
-                <span className="text-xs font-black text-board-900">YOUNES</span>
+                <span className="text-xs font-black text-board-900">THE SECRET</span>
               </Link>
 
               <div className="ms-auto flex items-center gap-3">
