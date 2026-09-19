@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { locales, localeLabel, type Locale } from "@/i18n/config";
+import { academyLinks, academySocialLinks } from "@/lib/academy-links";
 
 export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
   const homeLabel = locale === "ar" ? "الرئيسية" : "Accueil";
@@ -52,6 +53,21 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
         </nav>
 
         <div className="ms-auto flex items-center gap-2 lg:ms-0">
+          <div className="hidden items-center gap-1 xl:flex">
+            {academySocialLinks.map((link) => (
+              <a
+                key={link.key}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="grid size-8 place-items-center rounded-lg border border-white/10 bg-white/[0.025] text-[10px] font-black text-chalk-dim transition hover:border-accent/50 hover:text-accent"
+                aria-label={link.label}
+              >
+                {link.shortLabel}
+              </a>
+            ))}
+          </div>
+
           <div className="hidden items-center rounded-lg border border-white/10 bg-white/[0.025] p-0.5 text-[11px] sm:flex">
             {locales.map((code) => (
               <Link
@@ -65,6 +81,15 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
               </Link>
             ))}
           </div>
+
+          <a
+            href={academyLinks.whatsapp}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="hidden rounded-lg border border-accent/55 px-4 py-2 text-xs font-bold text-accent transition hover:bg-accent hover:text-board-900 md:inline-flex"
+          >
+            WhatsApp
+          </a>
 
           <Link
             href={`/${locale}/login`}
@@ -87,6 +112,11 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
             </a>
           ),
         )}
+        {academySocialLinks.map((link) => (
+          <a key={link.key} href={link.href} target="_blank" rel="noreferrer noopener" className="whitespace-nowrap text-accent">
+            {link.label}
+          </a>
+        ))}
       </nav>
     </header>
   );
