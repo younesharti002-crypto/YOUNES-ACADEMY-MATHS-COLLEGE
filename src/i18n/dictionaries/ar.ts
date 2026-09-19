@@ -1,12 +1,12 @@
 export const ar = {
   meta: {
-    title: "Younes Academy — الرياضيات للإعدادي",
+    title: "THE SECRET ACADEMY | سرك للتفوق",
     description:
       "منصة تعليمية للرياضيات خاصة بتلاميذ 1AC و2AC و3AC: دروس، تمارين، فروض، لقاءات مباشرة وتتبع التقدم.",
   },
   common: {
-    brand: "YOUNES",
-    brandSuffix: "Academy",
+    brand: "THE SECRET",
+    brandSuffix: "ACADEMY",
     skipToContent: "تخطَّ إلى المحتوى",
     instagram: "@younes.digital7",
     languageLabel: "اللغة",
@@ -21,13 +21,13 @@ export const ar = {
   },
   hero: {
     badge: "الرياضيات للإعدادي • 1AC · 2AC · 3AC",
-    name: "يونس الحارتي — Younes Academy",
+    name: "THE SECRET ACADEMY | سرك للتفوق",
     title: "فهم الرياضيات خطوة بخطوة",
     description:
       "دروس مبسطة وتمارين متدرجة وفروض مصححة، منظمة حسب المستوى باش يفهم التلميذ القاعدة ويطبقها بثقة.",
     primaryCta: "دخول التلاميذ",
     secondaryCta: "اكتشف البرنامج",
-    imageAlt: "صورة يونس الحارتي، مؤسس Younes Academy",
+    imageAlt: "صورة يونس الحارتي، مؤسس THE SECRET ACADEMY",
     imageCaption: "Maths Collège",
     stats: [
       { value: "1AC · 2AC · 3AC", label: "المستويات" },
@@ -54,7 +54,7 @@ export const ar = {
     eyebrow: "عن المنصة",
     title: "منصة مركزة على رياضيات الإعدادي",
     paragraphs: [
-      "Younes Academy كتجمع الدروس والتمارين والفروض والتصحيح داخل مسار واحد واضح لكل مستوى.",
+      "THE SECRET ACADEMY كتجمع الدروس والتمارين والفروض والتصحيح داخل مسار واحد واضح لكل مستوى.",
       "الهدف هو مساعدة التلميذ يفهم المفاهيم، يتدرب بانتظام، ويتابع التقدم ديالو بلا تشتت.",
       "المحتوى من إعداد وتقديم يونس الحارتي، بنفس المنهجية العملية: نفهم، نطبق، ثم نوثّق التقدم.",
     ],
@@ -95,7 +95,7 @@ export const ar = {
     },
   ],
   why: {
-    eyebrow: "لماذا Younes Academy؟",
+    eyebrow: "لماذا THE SECRET ACADEMY؟",
     title: "مسار واضح للتقدم في الرياضيات",
     items: [
       { title: "شرح بالخطوات", description: "القاعدة، المثال، ثم التمرين في تسلسل سهل المتابعة." },
@@ -106,7 +106,7 @@ export const ar = {
   },
   instagram: {
     eyebrow: "محتوى مجاني",
-    title: "نصائح وتمارين قصيرة مع Younes Academy",
+    title: "نصائح وتمارين قصيرة مع THE SECRET ACADEMY",
     description: "محتوى قصير للتذكير بالقواعد وحل تمارين مختارة، والمحتوى الكامل والمنظم كيبقى داخل المنصة.",
     cta: "تابع على إنستغرام",
     handle: "@younes.digital7",
