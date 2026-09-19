@@ -1,7 +1,7 @@
 {
-  "name": "Younes Academy — Maths Collège",
-  "short_name": "Younes Maths",
-  "description": "منصة الرياضيات للإعدادي: 1AC و2AC و3AC، دروس وتمارين وفروض ومتابعة التقدم.",
+  "name": "THE SECRET ACADEMY | سرك للتفوق",
+  "short_name": "SECRET ACADEMY",
+  "description": "THE SECRET ACADEMY | سرك للتفوق — منصة تعليمية هجينة للدروس، التمارين، الواجبات، النتائج وتتبع التقدم.",
   "id": "/ar",
   "start_url": "/ar",
   "scope": "/",
@@ -29,19 +29,37 @@
       "name": "تسجيل الدخول",
       "short_name": "Login",
       "url": "/ar/login",
-      "icons": [{ "src": "/icons/icon-192-v2.png", "sizes": "192x192", "type": "image/png" }]
+      "icons": [
+        {
+          "src": "/icons/icon-192-v2.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "الدروس",
       "short_name": "Cours",
       "url": "/ar/courses",
-      "icons": [{ "src": "/icons/icon-192-v2.png", "sizes": "192x192", "type": "image/png" }]
+      "icons": [
+        {
+          "src": "/icons/icon-192-v2.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     },
     {
       "name": "البث المباشر",
       "short_name": "Live",
       "url": "/ar/live",
-      "icons": [{ "src": "/icons/icon-192-v2.png", "sizes": "192x192", "type": "image/png" }]
+      "icons": [
+        {
+          "src": "/icons/icon-192-v2.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 }
