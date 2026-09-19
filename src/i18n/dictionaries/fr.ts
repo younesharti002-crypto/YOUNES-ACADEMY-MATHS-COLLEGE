@@ -2,12 +2,12 @@ import type { Dictionary } from "./ar";
 
 export const fr: Dictionary = {
   meta: {
-    title: "Younes Academy — Mathématiques Collège",
+    title: "THE SECRET ACADEMY | سرك للتفوق",
     description: "Une plateforme de mathématiques pour les élèves de 1AC, 2AC et 3AC : cours, exercices, devoirs, lives et suivi de progression.",
   },
   common: {
-    brand: "YOUNES",
-    brandSuffix: "Academy",
+    brand: "THE SECRET",
+    brandSuffix: "ACADEMY",
     skipToContent: "Aller au contenu",
     instagram: "@younes.digital7",
     languageLabel: "Langue",
@@ -22,12 +22,12 @@ export const fr: Dictionary = {
   },
   hero: {
     badge: "Mathématiques Collège • 1AC · 2AC · 3AC",
-    name: "Younes Harti — Younes Academy",
+    name: "THE SECRET ACADEMY | سرك للتفوق",
     title: "Comprendre les mathématiques étape par étape",
     description: "Des cours simplifiés, des exercices progressifs et des devoirs corrigés, organisés par niveau pour comprendre les règles et les appliquer avec confiance.",
     primaryCta: "Espace élèves",
     secondaryCta: "Découvrir le programme",
-    imageAlt: "Portrait de Younes Harti, fondateur de Younes Academy",
+    imageAlt: "Portrait de Younes Harti, fondateur de THE SECRET ACADEMY",
     imageCaption: "Maths Collège",
     stats: [
       { value: "1AC · 2AC · 3AC", label: "Niveaux" },
@@ -54,7 +54,7 @@ export const fr: Dictionary = {
     eyebrow: "La plateforme",
     title: "Une plateforme dédiée aux mathématiques du collège",
     paragraphs: [
-      "Younes Academy réunit cours, exercices, devoirs et corrections dans un parcours clair pour chaque niveau.",
+      "THE SECRET ACADEMY réunit cours, exercices, devoirs et corrections dans un parcours clair pour chaque niveau.",
       "L'objectif est d'aider l'élève à comprendre les notions, s'entraîner régulièrement et suivre sa progression sans dispersion.",
       "Le contenu est conçu et présenté par Younes Harti selon une méthode pratique : comprendre, appliquer, puis documenter les progrès.",
     ],
@@ -91,7 +91,7 @@ export const fr: Dictionary = {
     },
   ],
   why: {
-    eyebrow: "Pourquoi Younes Academy ?",
+    eyebrow: "Pourquoi THE SECRET ACADEMY ?",
     title: "Un parcours clair pour progresser en maths",
     items: [
       { title: "Une explication par étapes", description: "La règle, l'exemple puis l'exercice dans un ordre facile à suivre." },
@@ -102,7 +102,7 @@ export const fr: Dictionary = {
   },
   instagram: {
     eyebrow: "Contenu gratuit",
-    title: "Astuces et exercices courts avec Younes Academy",
+    title: "Astuces et exercices courts avec THE SECRET ACADEMY",
     description: "Des rappels de règles et des exercices sélectionnés en format court, avec les parcours complets dans la plateforme.",
     cta: "Suivre sur Instagram",
     handle: "@younes.digital7",
