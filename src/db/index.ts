@@ -4,6 +4,7 @@ import * as baseSchema from "./schema";
 import * as academyManagementSchema from "./academy-management-schema";
 import * as academyOperationsSchema from "./academy-operations-schema";
 import * as academyFinanceSchema from "./academy-finance-schema";
+import * as leadSchema from "./lead-schema";
 import { normalizePostgresConnectionString } from "@/lib/db/connection-string";
 
 const globalForDb = globalThis as typeof globalThis & {
@@ -26,5 +27,6 @@ export const db = drizzle(pool, {
     ...academyManagementSchema,
     ...academyOperationsSchema,
     ...academyFinanceSchema,
+    ...leadSchema,
   },
 });
