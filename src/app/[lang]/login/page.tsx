@@ -29,7 +29,7 @@ export default async function LoginPage({
       <div className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between gap-4 pb-5">
         <Link href={`/${lang}`} className="flex items-center gap-3">
           <Image
-            src="/images/secret-academy-logo.webp"
+            src="/brand/secret-academy-logo.svg"
             alt="THE SECRET ACADEMY"
             width={64}
             height={64}
@@ -53,7 +53,7 @@ export default async function LoginPage({
       <div className="relative z-10 mx-auto grid w-full max-w-6xl overflow-hidden rounded-[2rem] border border-accent/20 bg-[#07111c]/85 shadow-[0_35px_100px_rgba(0,0,0,0.5)] lg:grid-cols-[0.95fr_1.05fr]">
         <div className="relative hidden min-h-[42rem] overflow-hidden lg:block">
           <Image
-            src="/images/secret-academy-logo.webp"
+            src="/brand/secret-academy-logo.svg"
             alt="Logo THE SECRET ACADEMY"
             fill
             priority
