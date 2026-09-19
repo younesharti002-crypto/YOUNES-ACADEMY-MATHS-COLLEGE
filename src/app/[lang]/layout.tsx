@@ -44,7 +44,7 @@ export async function generateMetadata({
   return {
     title: dict.meta.title,
     description: dict.meta.description,
-    applicationName: "Younes Academy",
+    applicationName: "THE SECRET ACADEMY",
     manifest: "/manifest.webmanifest",
     icons: {
       icon: [
@@ -56,7 +56,7 @@ export async function generateMetadata({
     appleWebApp: {
       capable: true,
       statusBarStyle: "black-translucent",
-      title: "Younes Academy",
+      title: "THE SECRET ACADEMY",
     },
     alternates: {
       languages: {
