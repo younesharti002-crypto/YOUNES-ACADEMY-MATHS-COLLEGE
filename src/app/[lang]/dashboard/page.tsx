@@ -5,7 +5,9 @@ import { isLocale } from "@/i18n/config";
 import { getAuthenticatedSession, SESSION_COOKIE_NAME } from "@/lib/auth/session";
 import { getStudentProgressSummary } from "@/lib/progress/student-progress";
 import { getStudentSubscriptionAccess } from "@/lib/subscriptions/student-access";
+import { getStudentSubjects } from "@/lib/student/student-subjects";
 import { StudentHome } from "@/components/dashboard/StudentHome";
+import { StudentSubjectsPanel } from "@/components/dashboard/StudentSubjectsPanel";
 
 export default async function DashboardPage({ params }: { params: Promise<{ lang: string }> }) {
   const { lang } = await params;
@@ -29,12 +31,13 @@ export default async function DashboardPage({ params }: { params: Promise<{ lang
     const progress = active
       ? await getStudentProgressSummary(session.user.id)
       : { totalLessons: 0, startedLessons: 0, completedLessons: 0, percent: 0 };
-    return { access, active, progress };
+    const subjects = active ? await getStudentSubjects(session.user.id) : [];
+    return { access, active, progress, subjects };
   })().catch(() => null);
 
   if (!dashboard) redirect(`/${lang}/login`);
 
-  const { access, active, progress } = dashboard;
+  const { access, active, progress, subjects } = dashboard;
 
   const statusLabel = lang === "ar"
     ? active
@@ -82,6 +85,7 @@ export default async function DashboardPage({ params }: { params: Promise<{ lang
         progressCompleted={progress.completedLessons}
         progressTotal={progress.totalLessons}
       />
+      <StudentSubjectsPanel locale={lang} subjects={subjects} />
       <div className="fixed end-5 top-5 z-50 flex gap-2">
         <Link
           href={`/${lang}/homework`}
