@@ -19,7 +19,7 @@ export function Header({ dict, locale }: { dict: Dictionary; locale: Locale }) {
       <div className="mx-auto flex w-full max-w-[90rem] items-center gap-4 px-5 py-3 sm:px-8 lg:px-10">
         <Link href={`/${locale}`} className="group flex items-center gap-3">
           <Image
-            src="/images/secret-academy-logo.webp"
+            src="/brand/secret-academy-logo.svg"
             alt="THE SECRET ACADEMY"
             width={58}
             height={58}
