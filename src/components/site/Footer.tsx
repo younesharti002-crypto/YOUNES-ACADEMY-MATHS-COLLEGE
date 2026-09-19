@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary } from "@/i18n/dictionaries";
 import { locales, localeLabel, type Locale } from "@/i18n/config";
+import { SocialIcon } from "@/components/ui/SocialIcon";
 import { academyLinks, academySocialLinks } from "@/lib/academy-links";
 
 export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
@@ -39,9 +40,12 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
                 href={link.href}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="rounded-full border border-white/10 bg-white/[0.025] px-3 py-1.5 font-bold text-chalk-dim transition hover:border-accent/45 hover:text-accent"
+                aria-label={link.label}
+                title={link.label}
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.025] px-3 py-2 font-bold text-chalk-dim transition hover:border-accent/45 hover:text-accent"
               >
-                {link.label}
+                <SocialIcon name={link.key} className="size-4" />
+                <span>{link.label}</span>
               </a>
             ))}
           </div>
@@ -49,8 +53,9 @@ export function Footer({ dict, locale }: { dict: Dictionary; locale: Locale }) {
             href={academyLinks.whatsapp}
             target="_blank"
             rel="noreferrer noopener"
-            className="mt-4 inline-flex rounded-full border border-accent/40 bg-accent/10 px-4 py-2 text-xs font-black text-accent transition hover:bg-accent hover:text-board-900"
+            className="mt-4 inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-2 text-xs font-black text-accent transition hover:bg-accent hover:text-board-900"
           >
+            <SocialIcon name="whatsapp" className="size-4" />
             {contactLabel}: {academyLinks.phone}
           </a>
         </div>
