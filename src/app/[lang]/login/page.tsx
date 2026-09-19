@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LoginForm } from "@/components/auth/LoginForm";
+import { SocialIcon } from "@/components/ui/SocialIcon";
 import { isLocale } from "@/i18n/config";
 import { academyLinks, academySocialLinks } from "@/lib/academy-links";
 
@@ -49,8 +50,9 @@ export default async function LoginPage({
             href={academyLinks.whatsapp}
             target="_blank"
             rel="noreferrer noopener"
-            className="hidden rounded-lg border border-accent/35 bg-accent/10 px-3 py-2 text-xs font-black text-accent transition hover:bg-accent hover:text-board-900 sm:inline-flex"
+            className="hidden items-center gap-2 rounded-lg border border-accent/35 bg-accent/10 px-3 py-2 text-xs font-black text-accent transition hover:bg-accent hover:text-board-900 sm:inline-flex"
           >
+            <SocialIcon name="whatsapp" className="size-4" />
             WhatsApp
           </a>
           <Link
@@ -89,9 +91,12 @@ export default async function LoginPage({
                     href={link.href}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="rounded-full border border-white/10 bg-white/[0.035] px-3 py-1.5 text-xs font-bold text-chalk-dim transition hover:border-accent/45 hover:text-accent"
+                    aria-label={link.label}
+                    title={link.label}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.035] px-3 py-2 text-xs font-bold text-chalk-dim transition hover:border-accent/45 hover:text-accent"
                   >
-                    {link.label}
+                    <SocialIcon name={link.key} className="size-4" />
+                    <span>{link.label}</span>
                   </a>
                 ))}
               </div>
@@ -116,9 +121,12 @@ export default async function LoginPage({
                     href={link.href}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="rounded-full border border-white/10 px-3 py-1.5 text-xs font-bold text-chalk-dim transition hover:border-accent/45 hover:text-accent"
+                    aria-label={link.label}
+                    title={link.label}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-xs font-bold text-chalk-dim transition hover:border-accent/45 hover:text-accent"
                   >
-                    {link.label}
+                    <SocialIcon name={link.key} className="size-4" />
+                    <span>{link.label}</span>
                   </a>
                 ))}
               </div>
