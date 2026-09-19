@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Dictionary } from "@/i18n/dictionaries";
 import type { Locale } from "@/i18n/config";
+import { SocialIcon } from "@/components/ui/SocialIcon";
 import { Section } from "@/components/ui/Section";
 import { academyLinks, academySocialLinks } from "@/lib/academy-links";
 
@@ -25,9 +26,12 @@ export function CallToAction({ dict, locale }: { dict: Dictionary; locale: Local
                     href={link.href}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="rounded-full border border-white/10 bg-white/[0.025] px-3.5 py-2 text-xs font-black text-chalk-dim transition hover:border-accent/50 hover:text-accent"
+                    aria-label={link.label}
+                    title={link.label}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.025] px-3.5 py-2 text-xs font-black text-chalk-dim transition hover:border-accent/50 hover:text-accent"
                   >
-                    {link.label}
+                    <SocialIcon name={link.key} className="size-4" />
+                    <span>{link.label}</span>
                   </a>
                 ))}
               </div>
@@ -36,6 +40,7 @@ export function CallToAction({ dict, locale }: { dict: Dictionary; locale: Local
 
           <div className="flex flex-wrap gap-3 lg:flex-col">
             <a href={academyLinks.whatsapp} target="_blank" rel="noreferrer noopener" className="brand-button inline-flex min-w-44 items-center justify-center gap-3 rounded-lg px-6 py-3.5 text-sm font-black">
+              <SocialIcon name="whatsapp" className="size-4" />
               WhatsApp<span aria-hidden="true">←</span>
             </a>
             <Link href={`/${locale}/login`} className="inline-flex min-w-44 items-center justify-center rounded-lg border border-white/15 bg-white/[0.025] px-6 py-3.5 text-sm font-bold text-chalk transition hover:border-accent/40 hover:text-accent">
