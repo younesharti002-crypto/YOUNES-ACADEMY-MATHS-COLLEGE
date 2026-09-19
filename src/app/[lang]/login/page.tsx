@@ -26,8 +26,15 @@ export default async function LoginPage({
   const linksTitle = isAr ? "الروابط الرسمية" : "Liens officiels";
 
   return (
-    <main className="graph-paper relative min-h-screen overflow-hidden bg-[#050b13] px-4 py-5 sm:px-7 sm:py-8 lg:px-10">
-      <div aria-hidden="true" className="pointer-events-none absolute -end-40 -top-40 size-[34rem] rounded-full bg-accent/[0.06] blur-3xl" />
+    <main
+      className="graph-paper relative min-h-screen overflow-hidden bg-[#050b13] bg-cover bg-center px-4 py-5 sm:px-7 sm:py-8 lg:px-10"
+      style={{
+        backgroundImage:
+          "linear-gradient(135deg, rgba(5,11,19,0.95), rgba(5,11,19,0.78), rgba(5,11,19,0.94)), url('/brand/cosmic-hero.webp')",
+      }}
+    >
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[#050b13]/25" />
+      <div aria-hidden="true" className="pointer-events-none absolute -end-40 -top-40 size-[34rem] rounded-full bg-accent/[0.08] blur-3xl" />
 
       <div className="relative z-10 mx-auto flex w-full max-w-6xl items-center justify-between gap-4 pb-5">
         <Link href={`/${lang}`} className="flex items-center gap-3">
@@ -57,14 +64,14 @@ export default async function LoginPage({
           </a>
           <Link
             href={`/${lang}`}
-            className="rounded-lg border border-white/10 px-3 py-2 text-xs font-semibold text-chalk-dim transition hover:border-accent/40 hover:text-accent"
+            className="rounded-lg border border-white/10 bg-[#050b13]/55 px-3 py-2 text-xs font-semibold text-chalk-dim backdrop-blur-md transition hover:border-accent/40 hover:text-accent"
           >
             {backLabel}
           </Link>
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl overflow-hidden rounded-[2rem] border border-accent/20 bg-[#07111c]/85 shadow-[0_35px_100px_rgba(0,0,0,0.5)] lg:grid-cols-[0.95fr_1.05fr]">
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl overflow-hidden rounded-[2rem] border border-accent/20 bg-[#07111c]/88 shadow-[0_35px_100px_rgba(0,0,0,0.5)] backdrop-blur-md lg:grid-cols-[0.95fr_1.05fr]">
         <div className="relative hidden min-h-[42rem] overflow-hidden lg:block">
           <Image
             src="/brand/secret-academy-logo.svg"
@@ -112,7 +119,7 @@ export default async function LoginPage({
               <p className="mt-2 text-sm leading-7 text-chalk-dim">{lead}</p>
             </div>
             <LoginForm locale={lang} />
-            <div className="mt-7 rounded-2xl border border-white/10 bg-white/[0.025] p-4">
+            <div className="mt-7 rounded-2xl border border-white/10 bg-white/[0.035] p-4 backdrop-blur-md">
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-accent/80">{linksTitle}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {academySocialLinks.map((link) => (
