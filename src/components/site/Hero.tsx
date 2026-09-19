@@ -1,6 +1,8 @@
 import Image from "next/image";
 import type { Dictionary } from "@/i18n/dictionaries";
 
+const WHATSAPP_URL = "https://wa.me/212644344034?text=Salam%2C%20bghit%20nsjel%20wldi%20f%20THE%20SECRET%20ACADEMY.%20Niveau%3A%20___%20%2F%20Matiere%3A%20___";
+
 export function Hero({ dict }: { dict: Dictionary }) {
   return (
     <section className="graph-paper relative overflow-hidden border-b border-accent/15 bg-[#050b13]">
@@ -23,10 +25,10 @@ export function Hero({ dict }: { dict: Dictionary }) {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#programmes" className="brand-button inline-flex items-center gap-3 rounded-lg px-6 py-3.5 text-sm font-black">
+            <a href={WHATSAPP_URL} target="_blank" rel="noreferrer noopener" className="brand-button inline-flex items-center gap-3 rounded-lg px-6 py-3.5 text-sm font-black">
               {dict.hero.primaryCta}<span aria-hidden="true">←</span>
             </a>
-            <a href="#parents" className="inline-flex items-center gap-3 rounded-lg border border-accent/45 bg-white/[0.02] px-6 py-3.5 text-sm font-bold text-chalk transition hover:border-accent hover:bg-accent/[0.07]">
+            <a href="#programmes" className="inline-flex items-center gap-3 rounded-lg border border-accent/45 bg-white/[0.02] px-6 py-3.5 text-sm font-bold text-chalk transition hover:border-accent hover:bg-accent/[0.07]">
               {dict.hero.secondaryCta}
             </a>
           </div>
