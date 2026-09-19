@@ -12,7 +12,16 @@ import { getAuthenticatedSession, SESSION_COOKIE_NAME } from "@/lib/auth/session
 
 const SEGMENTS: AcademySegment[] = ["primaire", "college", "lycee"];
 
-function adminModules(lang: string, rtl: boolean) {
+type AdminModule = {
+  icon: string;
+  title: string;
+  body: string;
+  href: string;
+  cta: string;
+  tone: "accent" | "gold" | "default" | "teacher";
+};
+
+function adminModules(lang: string, rtl: boolean): AdminModule[] {
   return [
     {
       icon: "🟢",
@@ -23,6 +32,16 @@ function adminModules(lang: string, rtl: boolean) {
       href: `/${lang}/admin/leads`,
       cta: rtl ? "فتح الطلبات" : "Ouvrir les demandes",
       tone: "accent",
+    },
+    {
+      icon: "👨‍🏫",
+      title: rtl ? "الأساتذة" : "Professeurs",
+      body: rtl
+        ? "إنشاء حساب الأستاذ، تتبع الحصص المعينة، ومعرفة المواد التي مازال خاصها أستاذ."
+        : "Comptes professeurs, séances affectées et matières qui attendent un professeur.",
+      href: `/${lang}/admin/profs`,
+      cta: rtl ? "إدارة الأساتذة" : "Gérer les professeurs",
+      tone: "teacher",
     },
     {
       icon: "👨‍🎓",
@@ -48,8 +67,8 @@ function adminModules(lang: string, rtl: boolean) {
       icon: "🗓️",
       title: rtl ? "التخطيط" : "Planning",
       body: rtl
-        ? "الحصص، القاعات، الأيام، التوقيت، وربط الأستاذ لاحقاً."
-        : "Séances, salles, jours, horaires et professeurs à affecter.",
+        ? "الحصص، القاعات، الأيام، التوقيت، وربط الأستاذ بالمادة والحصة."
+        : "Séances, salles, jours, horaires et affectation professeurs.",
       href: `/${lang}/admin/planning`,
       cta: rtl ? "فتح التخطيط" : "Ouvrir planning",
       tone: "default",
@@ -91,7 +110,7 @@ function adminModules(lang: string, rtl: boolean) {
         ? "إضافة الدروس، الملفات، الفيديوهات، والمحتوى الرقمي."
         : "Publier cours, fichiers, vidéos et contenu numérique.",
       href: `/${lang}/studio`,
-      cta: rtl ? "Content Studio" : "Content Studio",
+      cta: "Content Studio",
       tone: "default",
     },
     {
@@ -143,8 +162,8 @@ export default async function AdminHomePage({
               </h1>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-chalk-dim sm:text-base">
                 {rtl
-                  ? "مركز التحكم اليومي ديال الأكاديمية: التسجيل، التلاميذ، المواد، التخطيط، الحضور، الواجبات، الأداءات والمحتوى."
-                  : "Centre de contrôle quotidien : inscriptions, élèves, matières, planning, présences, devoirs, paiements et contenu."}
+                  ? "مركز التحكم اليومي ديال الأكاديمية: التسجيل، الأساتذة، التلاميذ، المواد، التخطيط، الحضور، الواجبات، الأداءات والمحتوى."
+                  : "Centre de contrôle quotidien : inscriptions, professeurs, élèves, matières, planning, présences, devoirs, paiements et contenu."}
               </p>
             </div>
 
@@ -154,6 +173,12 @@ export default async function AdminHomePage({
                 className="rounded-full bg-accent px-5 py-2.5 text-sm font-black text-board-900 transition hover:bg-accent-soft"
               >
                 {rtl ? "طلبات التسجيل" : "Demandes"}
+              </Link>
+              <Link
+                href={`/${lang}/admin/profs`}
+                className="rounded-full border border-sky-300/35 bg-sky-300/10 px-5 py-2.5 text-sm font-black text-sky-100 transition hover:bg-sky-300/15"
+              >
+                {rtl ? "الأساتذة" : "Profs"}
               </Link>
               <Link
                 href={`/${lang}`}
@@ -207,21 +232,21 @@ export default async function AdminHomePage({
           </div>
         </section>
 
-        <section className="mt-8 rounded-[2rem] border border-amber-300/20 bg-amber-300/[0.06] p-5 sm:p-6">
+        <section className="mt-8 rounded-[2rem] border border-sky-300/20 bg-sky-300/[0.06] p-5 sm:p-6">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm font-black text-amber-200">
-                {rtl ? "حالة الأساتذة" : "Statut professeurs"}
+              <p className="text-sm font-black text-sky-200">
+                {rtl ? "مسار الأستاذ" : "Parcours professeur"}
               </p>
-              <p className="mt-1 text-sm leading-6 text-amber-50/70">
+              <p className="mt-1 text-sm leading-6 text-sky-50/70">
                 {rtl
-                  ? "لم يتم تعيين الأساتذة بعد. التخطيط الحالي بيداغوجي، وسيتم ربط كل حصة بالأستاذ بعد التوظيف."
-                  : "Les professeurs ne sont pas encore affectés. Le planning actuel est pédagogique; chaque séance sera reliée au professeur après recrutement."}
+                  ? "أنشئ حساب الأستاذ من إدارة الأشخاص، ثم اربطه بالمادة والحصة من التخطيط، وبعدها يدخل لفضاء الأستاذ لنشر الدروس والواجبات وتسجيل الحضور."
+                  : "Créez le compte professeur, affectez-le au planning, puis il utilise son espace pour publier, donner les devoirs et marquer les présences."}
               </p>
             </div>
-            <span className="inline-flex w-fit rounded-full border border-amber-200/25 px-3 py-1 text-xs font-black text-amber-200">
-              {rtl ? "في انتظار التعيين" : "À affecter"}
-            </span>
+            <Link href={`/${lang}/admin/profs`} className="inline-flex w-fit rounded-full border border-sky-200/25 px-3 py-1 text-xs font-black text-sky-200">
+              {rtl ? "فتح إدارة الأساتذة" : "Ouvrir profs"}
+            </Link>
           </div>
         </section>
 
@@ -265,7 +290,7 @@ export default async function AdminHomePage({
                           </p>
                         </div>
                         <span className="rounded-full border border-white/10 px-2.5 py-1 text-[11px] font-bold text-white/55">
-                          {rtl ? "الأستاذ: لاحقاً" : "Prof : à affecter"}
+                          {rtl ? "الأستاذ: حسب التخطيط" : "Prof : planning"}
                         </span>
                       </div>
 
@@ -293,8 +318,8 @@ export default async function AdminHomePage({
           </span>
           <span>
             {rtl
-              ? "المرحلة الحالية: اختبار التشغيل الحقيقي مع أول تلميذ وولي أمر"
-              : "Phase actuelle : test réel avec un premier élève et parent"}
+              ? "المرحلة الحالية: اختبار التشغيل الحقيقي مع أول تلميذ وولي أمر وأستاذ"
+              : "Phase actuelle : test réel avec un premier élève, parent et professeur"}
           </span>
         </footer>
       </div>
@@ -318,16 +343,10 @@ function AdminModuleCard({
   href,
   cta,
   tone,
-}: {
-  icon: string;
-  title: string;
-  body: string;
-  href: string;
-  cta: string;
-  tone: string;
-}) {
+}: AdminModule) {
   const featured = tone === "accent";
   const gold = tone === "gold";
+  const teacher = tone === "teacher";
 
   return (
     <Link
@@ -337,7 +356,9 @@ function AdminModuleCard({
           ? "border-emerald-300/25 bg-emerald-300/[0.08] hover:bg-emerald-300/[0.12]"
           : gold
             ? "border-accent/25 bg-accent/[0.07] hover:bg-accent/[0.1]"
-            : "border-white/10 bg-white/[0.04] hover:border-accent/25 hover:bg-white/[0.055]"
+            : teacher
+              ? "border-sky-300/25 bg-sky-300/[0.07] hover:bg-sky-300/[0.1]"
+              : "border-white/10 bg-white/[0.04] hover:border-accent/25 hover:bg-white/[0.055]"
       }`}
     >
       <div className="flex items-start justify-between gap-4">
