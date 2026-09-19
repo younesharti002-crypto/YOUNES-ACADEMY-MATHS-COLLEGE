@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -93,9 +94,13 @@ export function StudentHome({
       <div className="mx-auto min-h-screen max-w-[1560px] lg:grid lg:grid-cols-[250px_minmax(0,1fr)]">
         <aside className="hidden min-h-screen border-e border-white/10 bg-board-900 px-4 py-6 text-chalk lg:flex lg:flex-col">
           <Link href={`/${locale}`} className="flex items-center gap-3 px-2">
-            <span className="grid size-11 place-items-center rounded-2xl border border-accent/30 bg-accent/10 text-lg font-black text-accent shadow-[0_0_30px_rgba(209,166,54,0.12)]">
-              YA
-            </span>
+            <Image
+              src="/images/secret-academy-logo.webp"
+              alt="THE SECRET ACADEMY"
+              width={52}
+              height={52}
+              className="size-11 rounded-2xl object-cover shadow-[0_0_30px_rgba(209,166,54,0.12)]"
+            />
             <span>
               <span className="block text-sm font-extrabold tracking-[0.06em]">THE SECRET</span>
               <span className="block text-[9px] font-semibold uppercase tracking-[0.28em] text-accent">Academy</span>
@@ -134,7 +139,13 @@ export function StudentHome({
           <header className="sticky top-0 z-30 border-b border-black/[0.06] bg-[#f8f7f4]/90 px-4 py-3 backdrop-blur sm:px-6 lg:px-8">
             <div className="flex items-center gap-3">
               <Link href={`/${locale}`} className="flex items-center gap-2 lg:hidden">
-                <span className="grid size-9 place-items-center rounded-xl bg-board-900 text-xs font-black text-accent">TSA</span>
+                <Image
+                  src="/images/secret-academy-logo.webp"
+                  alt="THE SECRET ACADEMY"
+                  width={40}
+                  height={40}
+                  className="size-9 rounded-xl object-cover"
+                />
                 <span className="text-xs font-black text-board-900">THE SECRET</span>
               </Link>
 
