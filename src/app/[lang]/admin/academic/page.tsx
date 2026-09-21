@@ -32,6 +32,12 @@ export default async function AcademicAdminPage({
           {locale === "ar" ? "لوحة Academy" : "Dashboard Academy"}
         </Link>
         <Link
+          href={`/${locale}/admin/subjects`}
+          className="rounded-full bg-accent px-4 py-2 text-sm font-bold text-board-900 shadow-lg transition-opacity hover:opacity-90"
+        >
+          {locale === "ar" ? "إدارة المواد" : "Matières"}
+        </Link>
+        <Link
           href={`/${locale}/admin/security`}
           className="rounded-full border border-white/15 bg-board-900/90 px-4 py-2 text-sm font-semibold text-chalk shadow-lg backdrop-blur transition hover:bg-white/10"
         >
@@ -39,7 +45,7 @@ export default async function AcademicAdminPage({
         </Link>
         <Link
           href={`/${locale}/studio`}
-          className="rounded-full bg-accent px-4 py-2 text-sm font-bold text-board-900 shadow-lg transition-opacity hover:opacity-90"
+          className="rounded-full border border-white/15 bg-board-900/90 px-4 py-2 text-sm font-bold text-chalk shadow-lg transition hover:bg-white/10"
         >
           {locale === "ar" ? "Content Studio" : "Content Studio"}
         </Link>
