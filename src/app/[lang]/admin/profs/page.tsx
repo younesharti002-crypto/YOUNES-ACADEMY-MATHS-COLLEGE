@@ -2,6 +2,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { pool } from "@/db";
+import { CreateTeacherForm } from "@/components/admin/CreateTeacherForm";
 import { isLocale } from "@/i18n/config";
 import { getAuthenticatedSession, SESSION_COOKIE_NAME } from "@/lib/auth/session";
 
@@ -117,9 +118,10 @@ export default async function AdminProfsPage({
     loadError = error instanceof Error ? error.message : "Unable to load professors.";
   }
 
-  const assignedPercent = stats.totalSessions > 0
-    ? Math.round((stats.assignedSessions / stats.totalSessions) * 100)
-    : 0;
+  const assignedPercent =
+    stats.totalSessions > 0
+      ? Math.round((stats.assignedSessions / stats.totalSessions) * 100)
+      : 0;
 
   return (
     <main className="min-h-screen bg-board-900 px-4 py-8 text-chalk sm:px-6 lg:px-10" dir={rtl ? "rtl" : "ltr"}>
@@ -135,17 +137,17 @@ export default async function AdminProfsPage({
               </h1>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-chalk-dim sm:text-base">
                 {rtl
-                  ? "هنا كتراقب الأساتذة، الحصص اللي تعينت ليهم، والحصص اللي مازال خاصها أستاذ قبل بداية العمل الحقيقي."
-                  : "Suivi des professeurs, séances affectées et séances qui attendent encore un professeur."}
+                  ? "من هنا كتضيف الأستاذ مباشرة، كتراقب الحصص اللي تعينت ليه، والحصص اللي مازال خاصها أستاذ."
+                  : "Ajoutez le professeur directement, suivez les séances affectées et celles qui attendent un professeur."}
               </p>
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <Link href={`/${lang}/admin/people`} className="rounded-full bg-accent px-5 py-2.5 text-sm font-black text-board-900 transition hover:bg-accent-soft">
-                {rtl ? "إنشاء/إدارة أستاذ" : "Créer / gérer prof"}
-              </Link>
-              <Link href={`/${lang}/admin/planning`} className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-bold text-white/80 transition hover:bg-white/5">
+              <Link href={`/${lang}/admin/planning`} className="rounded-full bg-accent px-5 py-2.5 text-sm font-black text-board-900 transition hover:bg-accent-soft">
                 {rtl ? "ربط الأستاذ بالتخطيط" : "Affecter au planning"}
+              </Link>
+              <Link href={`/${lang}/admin/people`} className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-bold text-white/80 transition hover:bg-white/5">
+                {rtl ? "الأشخاص والحسابات" : "Personnes & comptes"}
               </Link>
               <Link href={`/${lang}/admin`} className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-bold text-white/80 transition hover:bg-white/5">
                 {rtl ? "رجوع للإدارة" : "Retour admin"}
@@ -159,6 +161,8 @@ export default async function AdminProfsPage({
             {rtl ? "تعذر تحميل معطيات الأساتذة: " : "Impossible de charger les données professeurs : "}{loadError}
           </section>
         ) : null}
+
+        <CreateTeacherForm locale={lang} />
 
         <section className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
           <Metric value={String(teachers.length)} label={rtl ? "أستاذ مسجل" : "Professeurs"} />
@@ -192,17 +196,17 @@ export default async function AdminProfsPage({
                 <p className="text-xs font-black uppercase tracking-[0.2em] text-accent/70">Teachers</p>
                 <h2 className="mt-1 text-2xl font-black">{rtl ? "لائحة الأساتذة" : "Liste des professeurs"}</h2>
               </div>
-              <Link href={`/${lang}/admin/people`} className="rounded-full border border-white/15 px-4 py-2 text-xs font-black text-white/70 hover:border-accent/40 hover:text-accent">
-                {rtl ? "إضافة" : "Ajouter"}
-              </Link>
+              <span className="rounded-full border border-accent/25 bg-accent/10 px-4 py-2 text-xs font-black text-accent">
+                {teachers.length} {rtl ? "أستاذ" : "profs"}
+              </span>
             </div>
 
             <div className="space-y-3">
               {teachers.length === 0 ? (
                 <div className="rounded-3xl border border-white/10 bg-white/[0.035] p-5 text-sm leading-7 text-chalk-dim">
                   {rtl
-                    ? "مازال ما كاين حتى حساب أستاذ. افتح إدارة الأشخاص وأنشئ حساب بدور TEACHER."
-                    : "Aucun compte professeur pour le moment. Ouvrez la gestion des personnes et créez un compte TEACHER."}
+                    ? "مازال ما كاين حتى حساب أستاذ. استعمل الفورم أعلاه لإنشاء أول أستاذ."
+                    : "Aucun compte professeur pour le moment. Utilisez le formulaire ci-dessus pour créer le premier professeur."}
                 </div>
               ) : (
                 teachers.map((teacher) => (
